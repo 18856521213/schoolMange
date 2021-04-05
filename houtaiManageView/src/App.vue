@@ -1,0 +1,11 @@
+<template>
+  <div id="app">
+    <!-- <el-button type="primary">鸟大了什么林子都有</el-button>
+    <el-button type="danger">鸟大了什么林子都有</el-button>
+    <el-button type="success">鸟大了什么林子都有</el-button>
+    <el-button type="warning">鸟大了什么林子都有</el-button> -->
+    <router-view/>
+  </div>
+</template>
+
+<style></style>
