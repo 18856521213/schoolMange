@@ -23,7 +23,7 @@ import Aside from '@/components/aside.vue'
 import pageHeader from '@/components/common/pageHeader.vue'
 export default {
   name: 'Home',
-  components:{ Hander, Aside, pageHeader }
+  components:{ Hander, Aside, pageHeader },
 }
 </script>
 <style lang='less' scoped>

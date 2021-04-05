@@ -15,7 +15,7 @@ const routes = [
     name: 'home',
     component: Home,
     meta:{
-      name:"主页"
+      name:"主页czxcd"
     },
     children:[
       {
@@ -23,7 +23,7 @@ const routes = [
         name: 'main',
         component: Main,
         meta:{
-          name:"主页"
+          name:"主页fesfsef"
         }
       },
       {
@@ -31,7 +31,7 @@ const routes = [
         name: 'main1',
         component: Main,
         meta:{
-          name:"主页"
+          name:"主页fdsfsdf"
         }
       },
       {
@@ -39,7 +39,7 @@ const routes = [
         name: 'main2',
         component: Main,
         meta:{
-          name:"主页"
+          name:"主页fewfsf"
         }
       },
       {
@@ -47,7 +47,7 @@ const routes = [
         name: 'main3',
         component: Main,
         meta:{
-          name:"主页"
+          name:"主页gvrfgwe"
         }
       },
     ]
