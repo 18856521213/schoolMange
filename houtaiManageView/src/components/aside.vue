@@ -1,3 +1,4 @@
+
 <template>
     <div class="box">
         <el-menu
@@ -6,9 +7,10 @@
             text-color="#909399"
             router
             @open="handleOpen"
+            default-active="/home/main"
             @close="handleClose"
-            active-text-color="#19856F">
-               <el-menu-item v-for="item in navList.single" :key="item.path" :index="item.path">
+            active-text-color="#19856f">
+               <el-menu-item v-for="item in navList.single" :key="item.name" :index="item.path">
                 <i :class="item.icon"></i>
                 <span slot="title">{{  item.name }}</span>
                </el-menu-item>
@@ -37,9 +39,9 @@ export default {
                         icon:"el-icon-user-solid",
                         path:"/studentManage",
                         children:[
-                             {path:"/home/student",name:"学生名单"},
-                             {path:"/home/studentScore",name:"学生成绩"},
-                             {path:"/home/studentScore1",name:"学生信息"},
+                             {path:"/home/main1",name:"学生名单"},
+                             {path:"/home/main2",name:"学生成绩"},
+                             {path:"/home/main3",name:"学生信息"},
                         ]
                     },
                 ],
@@ -60,12 +62,28 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+@hoveBgLeft : #ececec;
+@hoverFontColor :#fff;
 .box{
     height: 100%;
 }
 .el-menu-vertical-demo:not(.el-menu--collapse) {
     width: 200px;
     height: 100%;
-    background-color: red;
 }
-</style>
+.el-menu-item:hover{
+	  background: @hoveBgLeft !important;
+	}
+.el-submenu__title:hover{
+	  background: @hoveBgLeft !important;
+}
+/deep/ .el-menu-item.is-active {
+       border-right:3px solid #19856f  !important;
+}
+
+// .el-submenu__title .is-active {
+//     background: #1c88cf!important;
+//     color: #fff!important;
+// }
+
+    </style>

@@ -26,6 +26,30 @@ const routes = [
           name:"主页"
         }
       },
+      {
+        path: 'main1',
+        name: 'main1',
+        component: Main,
+        meta:{
+          name:"主页"
+        }
+      },
+      {
+        path: 'main2',
+        name: 'main2',
+        component: Main,
+        meta:{
+          name:"主页"
+        }
+      },
+      {
+        path: 'main3',
+        name: 'main3',
+        component: Main,
+        meta:{
+          name:"主页"
+        }
+      },
     ]
   },
 ]
