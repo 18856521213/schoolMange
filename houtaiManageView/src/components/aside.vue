@@ -8,6 +8,10 @@
             @open="handleOpen"
             @close="handleClose"
             active-text-color="#19856F">
+               <el-menu-item v-for="item in navList.single" :key="item.path" :index="item.path">
+                <i :class="item.icon"></i>
+                <span slot="title">{{  item.name }}</span>
+               </el-menu-item>
                 <el-submenu :index="item.path" v-for='item in navList.multiple' :key="item.name">
                     <template slot="title">
                         <i :class="item.icon"></i>
@@ -15,10 +19,6 @@
                     </template>
                     <el-menu-item @click="wowe" ref="abc" v-for="item2 in item.children" :key="item2.path" :index="item2.path">{{ item2.name }}</el-menu-item>
                 </el-submenu>   
-               <el-menu-item v-for="item in navList.single" :key="item.path" :index="item.path">
-                <i :class="item.icon"></i>
-                <span slot="title">{{  item.name }}</span>
-            </el-menu-item>
         </el-menu>
     </div>
 </template>
@@ -28,6 +28,9 @@ export default {
     data() {
         return {
             navList:{
+                single:[
+                    {path:"/home/main",name:"首页",icon:"el-icon-s-home"}
+                ],
                 multiple:[
                     {
                         name:"学生管理",
@@ -40,9 +43,6 @@ export default {
                         ]
                     },
                 ],
-                single:[
-                    {path:"dsa",name:"ds",icon:"el-icon-s-tools"}
-                ]
             }
         }
     },

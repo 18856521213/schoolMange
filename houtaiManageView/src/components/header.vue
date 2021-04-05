@@ -2,7 +2,7 @@
     <div class="box">
         <div class="header-left">
             <i class="el-icon-user-solid"></i>
-            <span class="header-left-title">政务系统</span>
+            <span class="header-left-title">教务系统</span>
         </div>
         <div class="header-right">
             <el-avatar class="header-img" size="large" src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"></el-avatar>
@@ -43,17 +43,17 @@ export default {
         }
     }
     .header-right{
-        // padding:0 20px;
-        // text-align: center;
-        // .header-img{
-        //     position: relative;
-        //     top:12px;
-        //     right:5px;
-        // }
-        // .el-dropdown-link {
-        //     cursor: pointer;
-        //     color: #fff;
-        // }
+        padding:0 20px 20px 0;
+        text-align: center;
+        .header-img{
+            position: relative;
+            top:12px;
+            right:5px;
+        }
+        .el-dropdown-link {
+            cursor: pointer;
+            color: #fff;
+        }
       }
 }
 </style>
