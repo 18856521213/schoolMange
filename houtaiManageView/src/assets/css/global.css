@@ -5,7 +5,7 @@ html,body,#app {
   }
 /* ---------element对话框的样式修改--------- */
   .el-dialog__header{
-    background-color: #558dfd;
+    background-color: #19856f;
     text-align: center;
     color: #fff;
   }
@@ -13,7 +13,15 @@ html,body,#app {
     color: #fff !important;
     font-size: 20px !important;
   }
-  .dialog-content .el-input__inner{
+  /* .dialog-content .el-input__inner{
     width:270px !important;
-  }
+  } */
+ 
+.el-dialog__headerbtn .el-dialog__close{
+    color:#fff;
+
+}
+.el-dialog__headerbtn .el-dialog__close:hover{
+  color:#fff !important;
+}
   /* ---------element对话框的样式修改-----end */

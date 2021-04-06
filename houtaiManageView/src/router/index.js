@@ -23,7 +23,7 @@ const routes = [
         name: 'main',
         component: Main,
         meta:{
-          name:"主页fesfsef"
+          name:"首页"
         }
       },
       {

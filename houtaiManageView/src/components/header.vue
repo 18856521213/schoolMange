@@ -1,7 +1,7 @@
 <template>
     <div class="box">
         <div class="header-left">
-            <i class="el-icon-user-solid"></i>
+            <i class="el-icon-star-on"></i>
             <span class="header-left-title">教务系统</span>
         </div>
         <div class="header-right">

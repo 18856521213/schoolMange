@@ -8,4 +8,11 @@
   </div>
 </template>
 
-<style></style>
+<style>
+.el-dialog__header{
+    background: #19856f;
+}
+.el-dialog__headerbtn .el-dialog__close{
+    color:#fff;
+}
+</style>

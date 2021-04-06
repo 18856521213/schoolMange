@@ -38,7 +38,8 @@ export default {
   top: 60px;
   bottom: 0;
   overflow-y: scroll;
-  overflow-x: hidden
+  overflow-x: hidden;
+  background-color:rgb(245, 244, 244);
 }
 
 
