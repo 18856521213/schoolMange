@@ -68,7 +68,7 @@ export default {
                     },
                     title:{
                         left:'center',
-                        text:'周课时',
+                        text:'月课时',
                     },
                     grid:[{
                         top:30,
