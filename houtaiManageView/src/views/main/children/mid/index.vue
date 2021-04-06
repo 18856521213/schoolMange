@@ -39,6 +39,11 @@ export default {
         height:300px;
         background: #fff;
         padding:10px;
+        h3{
+            padding-top:10px;
+            margin:0;
+            color:#3b3b3b;
+        }
     }
     .mid-right{
         width:41%;
