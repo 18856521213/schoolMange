@@ -25,3 +25,14 @@ html,body,#app {
   color:#fff !important;
 }
   /* ---------element对话框的样式修改-----end */
+  /*---取消滚动条---*/
+  html {
+    -ms-overflow-style:none;
+       overflow:-moz-scrollbars-none;
+    }
+    html::-webkit-scrollbar{width:0px}
+    ::-webkit-scrollbar{
+       display:none;
+    }
+
+  /*---取消滚动条end---*/

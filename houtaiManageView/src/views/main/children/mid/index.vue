@@ -55,6 +55,12 @@
                     <p>1</p>
                     <p>1</p>
                     <p>1</p>
+                    <p>1</p>
+                    <p>1</p>
+                    <p>1</p>
+                    <p>1</p>
+                    <p>1</p>
+                    <p>1</p>
                 </el-tab-pane>
                 <el-tab-pane label="校内资讯" name="second">配置管理</el-tab-pane>
                 <el-tab-pane label="班级调整" name="third">角色管理</el-tab-pane>
@@ -128,6 +134,13 @@ export default {
         background: #fff;
         padding:10px;
         overflow: hidden;
+        /deep/ .el-tabs__content{
+            width:100%;
+            height:255px;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
     }
 }
 </style>

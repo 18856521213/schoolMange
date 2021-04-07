@@ -1,3 +1,10 @@
+<!--
+ * @Author: Amos
+ * @Date: 2021-03-25 10:38:31
+ * @LastEditors: Amos
+ * @LastEditTime: 2021-04-29 16:29:55
+ * @Description: 首页头部
+ -->
 <template>
     <div class="top">
       <div class="lesson-class br-radius">
