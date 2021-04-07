@@ -1,3 +1,10 @@
+<!--
+ * @Author: Amos
+ * @Date: 2021-03-25 10:38:31
+ * @LastEditors: Amos
+ * @LastEditTime: 2021-04-29 16:29:55
+ * @Description: 首页中部
+ -->
 <template>
     <div class="top">
         <div class="mid-left br-radius">
@@ -37,46 +44,37 @@
             </div>
         </div>
         <div class="mid-right br-radius">
-            <el-tabs tab-position="top" :stretch="true">
+            <el-tabs tab-position="top" v-model="active" :stretch="true">
                 <el-tab-pane :lazy="true" label="综合资讯" name="first">
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
-                    <p>1</p>
+                    <complexInformation></complexInformation>
                 </el-tab-pane>
-                <el-tab-pane label="校内资讯" name="second">配置管理</el-tab-pane>
-                <el-tab-pane label="班级调整" name="third">角色管理</el-tab-pane>
-                <el-tab-pane label="奖学金" name="fourth">任务补偿</el-tab-pane>
+                <el-tab-pane label="校内资讯" name="second">
+                    <schoolInformation></schoolInformation>
+                </el-tab-pane>
+                <el-tab-pane label="班级调整" name="third">
+                    <classAdj></classAdj>
+                </el-tab-pane>
+                <el-tab-pane label="奖学金" name="fourth">
+                    <scholarship></scholarship>
+                </el-tab-pane>
             </el-tabs>
         </div>
     </div>
 </template>
 <script>
+import complexInformation from "./components/complexInformation.vue"
+import schoolInformation from "./components/schoolInformation.vue"
+import classAdj from "./components/classAdj.vue"
+import scholarship from "./components/scholarship.vue"
 export default {
     name:"mid",
     data(){
         return{
-
+            active:"first"
         }
-    }
+    },
+    components:{ complexInformation,schoolInformation,classAdj,scholarship }
+    
 }
 </script>
 <style lang="less" scoped>
