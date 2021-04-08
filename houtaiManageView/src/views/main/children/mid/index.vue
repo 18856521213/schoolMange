@@ -48,13 +48,13 @@
                 <el-tab-pane :lazy="true" label="综合资讯" name="first">
                     <complexInformation></complexInformation>
                 </el-tab-pane>
-                <el-tab-pane label="校内资讯" name="second">
+                <el-tab-pane :lazy="true" label="校内资讯" name="second">
                     <schoolInformation></schoolInformation>
                 </el-tab-pane>
-                <el-tab-pane label="班级调整" name="third">
+                <el-tab-pane :lazy="true" label="班级调整" name="third">
                     <classAdj></classAdj>
                 </el-tab-pane>
-                <el-tab-pane label="奖学金" name="fourth">
+                <el-tab-pane :lazy="true" label="奖学金" name="fourth">
                     <scholarship></scholarship>
                 </el-tab-pane>
             </el-tabs>
@@ -82,7 +82,7 @@ export default {
 .top{
     display: flex;
     justify-content: space-between;
-    padding:20px 0;
+    padding:15px 0;
     .br-radius{
         border-radius:10px;
         box-shadow: 3px 3px 3px @projectionColor;

@@ -13,15 +13,18 @@
     <div class="mid">
       <Mid></Mid>
     </div>
-    <div class="bottom"></div>
+    <div class="bottom">
+      <bottomView></bottomView>
+    </div>
   </div>
 </template>
 <script>
 import Top from "./children/top/index.vue"
 import Mid from "./children/mid/index.vue"
+import bottomView from "./children/bottom/index.vue"
 export default {
   name:"mainView",
-  components:{ Top,Mid }
+  components:{ Top,Mid,bottomView }
 }
 </script>
 <style lang="less" scoped>
