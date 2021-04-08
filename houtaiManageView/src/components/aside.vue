@@ -38,17 +38,18 @@ export default {
         return {
             navList:{
                 single:[
-                    {path:"/home/main",name:"首页",icon:"el-icon-s-home"}
+                    {path:"/home",name:"首页",icon:"el-icon-s-home"}
                 ],
                 multiple:[
                     {
-                        name:"学生管理",
+                        name:"新闻管理",
                         icon:"el-icon-user-solid",
-                        path:"/studentManage",
+                        path:"/newsManage",
                         children:[
-                             {path:"/home/main1",name:"学生名单"},
-                             {path:"/home/main2",name:"学生成绩"},
-                             {path:"/home/main3",name:"学生信息"},
+                             {path:"/newsManage/complexInformation",name:"综合资讯管理"},
+                             {path:"/newsManage/schoolInformation",name:"校内资讯管理"},
+                             {path:"/newsManage/classAdj",name:"班级调整管理"},
+                             {path:"/newsManage/scholarship",name:"奖学金管理"},
                         ]
                     },
                 ],

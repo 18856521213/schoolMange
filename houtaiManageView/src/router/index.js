@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '@/views/index.vue'
-import Main from '@/views/main/index.vue'
+// import Home from '@/views/index.vue'
+import Home from '@/views/main/index.vue'
 Vue.use(VueRouter)
 
 const routes = [
   { 
     path: '/', 
-    redirect:'/home/main'
+    redirect:'/home'
   },
 
   {
@@ -15,43 +15,50 @@ const routes = [
     name: 'home',
     component: Home,
     meta:{
-      name:"主页czxcd"
+      name:"主页"
+    },
+  },
+  {
+    path: '/newsManage',
+    name: 'newsManage',
+    meta:{
+      name:"新闻管理"
     },
     children:[
       {
-        path: 'main',
-        name: 'main',
-        component: Main,
+        path: 'complexInformation',
+        name: 'complexInformation',
+        component: Home,
         meta:{
-          name:"首页"
+          name:"综合资讯管理"
         }
       },
       {
-        path: 'main1',
-        name: 'main1',
-        component: Main,
+        path: 'schoolInformation',
+        name: 'schoolInformation',
+        component: Home,
         meta:{
-          name:"主页fdsfsdf"
+          name:"校内资讯管理"
         }
       },
       {
-        path: 'main2',
-        name: 'main2',
-        component: Main,
+        path: 'classAdj',
+        name: 'classAdj',
+        component: Home,
         meta:{
-          name:"主页fewfsf"
+          name:"班级调整管理"
         }
       },
       {
-        path: 'main3',
-        name: 'main3',
-        component: Main,
+        path: 'scholarship',
+        name: 'scholarship',
+        component: Home,
         meta:{
-          name:"主页gvrfgwe"
+          name:"奖学金管理"
         }
       },
     ]
-  },
+  }
 ]
 
 const router = new VueRouter({
@@ -59,5 +66,13 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 })
+
+router.beforeEach((to, from, next) => {
+  if(to.meta.name){
+    document.title = to.meta.name
+  }
+  next();
+})
+
 
 export default router
