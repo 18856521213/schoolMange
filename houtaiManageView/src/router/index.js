@@ -1,9 +1,20 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '@/views/index.vue'
-import Home from '@/views/main/index.vue'
 Vue.use(VueRouter)
+import Home from '@/views/main/index.vue'
 
+//新闻管理(一级)
+const newsManage = () => import('@/views/newManage/')
+//综合资讯管理(二级)
+const complexInformation = () => import('@/views/newManage/complexInformation/')
+//校内资讯管理(二级)
+const schoolInformation = () => import('@/views/newManage/schoolInformation/')
+//奖学金管理(二级)
+const scholarship = () => import('@/views/newManage/scholarship/')
+//人员管理(一级)
+const peopleManage = () => import('@/views/peopleManage/')
+//教师管理(二级)
+const teacherManage = () => import('@/views/peopleManage/teacherManage/')
 const routes = [
   { 
     path: '/', 
@@ -15,12 +26,13 @@ const routes = [
     name: 'home',
     component: Home,
     meta:{
-      name:"主页"
+      name:"首页"
     },
   },
   {
     path: '/newsManage',
     name: 'newsManage',
+    component: newsManage,
     meta:{
       name:"新闻管理"
     },
@@ -28,7 +40,7 @@ const routes = [
       {
         path: 'complexInformation',
         name: 'complexInformation',
-        component: Home,
+        component: complexInformation,
         meta:{
           name:"综合资讯管理"
         }
@@ -36,29 +48,39 @@ const routes = [
       {
         path: 'schoolInformation',
         name: 'schoolInformation',
-        component: Home,
+        component: schoolInformation,
         meta:{
           name:"校内资讯管理"
         }
       },
       {
-        path: 'classAdj',
-        name: 'classAdj',
-        component: Home,
-        meta:{
-          name:"班级调整管理"
-        }
-      },
-      {
         path: 'scholarship',
         name: 'scholarship',
-        component: Home,
+        component: scholarship,
         meta:{
           name:"奖学金管理"
         }
       },
     ]
-  }
+  },
+  {
+    path: '/peopleManage',
+    name: 'peopleManage',
+    component: peopleManage,
+    meta:{
+      name:"人员管理"
+    },
+    children:[
+      {
+        path: 'teacherManage',
+        name: 'teacherManage',
+        component: teacherManage,
+        meta:{
+          name:"教师管理"
+        }
+      },
+    ]
+  },
 ]
 
 const router = new VueRouter({

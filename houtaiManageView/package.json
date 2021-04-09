@@ -22,7 +22,8 @@
     "element-ui": "^2.15.1",
     "less": "^4.1.1",
     "less-loader": "5.0.0",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "wangeditor": "^4.6.14"
   },
   "browserslist": [
     "> 1%",

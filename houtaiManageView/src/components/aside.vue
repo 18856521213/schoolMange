@@ -14,7 +14,7 @@
             text-color="#909399"
             router
             @open="handleOpen"
-            default-active="/home/main"
+            :default-active="fullPath"
             @close="handleClose"
             active-text-color="#19856f">
                <el-menu-item v-for="item in navList.single" :key="item.name" :index="item.path">
@@ -26,7 +26,7 @@
                         <i :class="item.icon"></i>
                         <span>{{ item.name }}</span>
                     </template>
-                    <el-menu-item @click="wowe" ref="abc" v-for="item2 in item.children" :key="item2.path" :index="item2.path">{{ item2.name }}</el-menu-item>
+                    <el-menu-item ref="abc" v-for="item2 in item.children" :key="item2.path" :index="item2.path">{{ item2.name }}</el-menu-item>
                 </el-submenu>   
         </el-menu>
     </div>
@@ -36,6 +36,7 @@ export default {
     name:"left",
     data() {
         return {
+            fullPath:"",
             navList:{
                 single:[
                     {path:"/home",name:"首页",icon:"el-icon-s-home"}
@@ -43,26 +44,38 @@ export default {
                 multiple:[
                     {
                         name:"新闻管理",
-                        icon:"el-icon-user-solid",
+                        icon:"el-icon-document",
                         path:"/newsManage",
                         children:[
                              {path:"/newsManage/complexInformation",name:"综合资讯管理"},
                              {path:"/newsManage/schoolInformation",name:"校内资讯管理"},
-                             {path:"/newsManage/classAdj",name:"班级调整管理"},
                              {path:"/newsManage/scholarship",name:"奖学金管理"},
                         ]
                     },
+                    {
+                        name:"人员管理",
+                        icon:"el-icon-user-solid",
+                        path:"/peopleManage",
+                        children:[
+                             {path:"/peopleManage/teacherManage",name:"教师管理"},
+                        ]
+                    },
                 ],
-            }
+            },
         }
     },
+    created(){
+        this.getFullPath();
+    },
     methods: {
+        getFullPath(){
+          this.fullPath = this.$route.fullPath
+          console.log(this.fullPath,this.$route.fullPath);
+        },
         handleOpen(key, keyPath) {
-      },
-      handleClose(key, keyPath) {
-      },
-      wowe(){
-      }
+        },
+        handleClose(key, keyPath) {
+        },
     },
 }
 </script>
