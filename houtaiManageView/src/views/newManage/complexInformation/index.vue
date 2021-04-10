@@ -17,10 +17,7 @@
       <el-form-item label="文章标签">
         <div>
          <el-radio-group v-model="newsLabel">
-          <el-radio-button label="党委会议"></el-radio-button>
-          <el-radio-button label="运动资讯"></el-radio-button>
-          <el-radio-button label="社团活动"></el-radio-button>
-          <el-radio-button label="八卦小道"></el-radio-button>
+          <el-radio-button v-for="item in radioLidt" :label="item" :key="item"></el-radio-button>
         </el-radio-group>
         </div>
       </el-form-item>
@@ -28,7 +25,7 @@
         <div id="div1"></div>
       </el-form-item>
       <el-form-item class="btn">
-        <el-button @click="getHtml" type="primary">提交内容</el-button>
+        <el-button @click="addContent" type="primary">提交内容</el-button>
         <el-button @click="resetForm" type="danger">清空</el-button>
       </el-form-item>
     </el-form>
@@ -37,6 +34,7 @@
 
 <script>
 import E from "wangeditor";
+import { addComplexInformation } from "@/api/newsManage/complexInformation/index.js"
   export default {
     data() {
       return {
@@ -46,6 +44,7 @@ import E from "wangeditor";
         },
         editor:null,//富文本编辑器对象
         newsLabel:[],
+        radioLidt:["党委会议","运动资讯","社团活动","八卦小道"],
       }
     },
     mounted() {
@@ -56,11 +55,18 @@ import E from "wangeditor";
         this.editor = new E("#div1");
         this.editor.create();
       },
-      getHtml(){
-        console.log(this.editor.txt.html())
-        console.log(this.editor.txt)
-        console.log(typeof this.editor.txt.html())
-        console.log(this.editor.txt.text())
+      //提交新闻资讯
+      addContent(){
+        let data ={
+          title:"都是一些什么标题啊",
+          reTitle:"dsadas",
+          label:"党委会议",
+          content:"党委会议党委会议党委会议党委会议",
+          titleId:125,
+        }
+        addComplexInformation(data).then(res =>{
+          console.log(res);
+        })
       },
       resetForm(){
         for(let i in this.form){
