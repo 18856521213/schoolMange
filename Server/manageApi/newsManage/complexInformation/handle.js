@@ -2,21 +2,65 @@ const complexInformation = require('../../../models/newsManage/complexInformatio
 const dayjs = require('dayjs')
 module.exports = {
   //添加综合资讯
-  addComplexInformation(req,res){
-    req.body.createTime = dayjs().format('YYYY-MM-DD HH:mm:ss')
+  async addComplexInformation(req,res){
+    //对ID进行自增
+    let id;
+    await complexInformation.find({},(err,data)=>{
+       if(data.length > 0){
+         console.log(data);
+         id = Number(data[0].titleId) + 1;
+       }
+    }).sort({createTime:-1}).skip(0).limit(1);
+    //插入提交时间
+    req.body.createTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
+    console.log(id,"************");
+    req.body.titleId = id;
     let addComplexInformation = new complexInformation(req.body)
     addComplexInformation.save((err)=>{
       if(!err){
         res.json({
+          status:200,
           success:true,
-          seccessMessage:'添加成功'
+          failure:false,
+          successMessage:'添加综合资讯成功',
+          errMessage:null,
+          data:null
         })
       }else{
         res.json({
+          status:200,
           success:false,
-          errMessage:'添加失败'+err
+          failure:true,
+          successMessage:null,
+          errMessage:"添加综合资讯失败",
+          data:null
         })
       }
     })
+  },
+
+  //查询综合资讯内容
+  findComplexInformation(req,res){
+    complexInformation.find({},(err,data)=>{
+      if(!err){
+        res.json({
+          status:200,
+          success:true,
+          failure:false,
+          successMessage:'查找综合资讯成功',
+          errMessage:null,
+          data:data
+        })
+      }else{
+        res.json({
+          status:200,
+          success:false,
+          failure:true,
+          successMessage:null,
+          errMessage:"查找综合资讯失败",
+          data:[]
+        })
+      }
+    }).sort({createTime:-1}).skip(req.body.page).limit(req.body.page*5);
   }
 }

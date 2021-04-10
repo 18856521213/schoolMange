@@ -7,21 +7,21 @@
  -->
 <template>
   <div>
-    <el-form>
-      <el-form-item label="文章标题">
+    <el-form :rules="rule" :model="form" ref="form">
+      <el-form-item label="文章标题" prop="title">
          <el-input v-model="form.title" placeholder="请输入文章标题"></el-input>
       </el-form-item>
-      <el-form-item label="二级标题">
-         <el-input v-model="form.retitle" placeholder="请输入二级标题"></el-input>
+      <el-form-item label="二级标题" prop="reTitle">
+         <el-input v-model="form.reTitle" placeholder="请输入二级标题"></el-input>
       </el-form-item>
-      <el-form-item label="文章标签">
+      <el-form-item label="文章标签" prop="label">
         <div>
-         <el-radio-group v-model="newsLabel">
+         <el-radio-group v-model="form.label">
           <el-radio-button v-for="item in radioLidt" :label="item" :key="item"></el-radio-button>
         </el-radio-group>
         </div>
       </el-form-item>
-      <el-form-item>
+      <el-form-item  prop="content">
         <div id="div1"></div>
       </el-form-item>
       <el-form-item class="btn">
@@ -40,15 +40,42 @@ import { addComplexInformation } from "@/api/newsManage/complexInformation/index
       return {
         form:{
           title:"",
-          retitle:""
+          reTitle:"",
+          label:"",
+          content:""
         },
         editor:null,//富文本编辑器对象
-        newsLabel:[],
         radioLidt:["党委会议","运动资讯","社团活动","八卦小道"],
+        rule:{
+          title:[
+            {required: true, message: '请输入文章标题', trigger: 'blur'}
+          ],
+          reTitle:[
+            {required: true, message: '请输入二级标题', trigger: 'blur'}
+          ],
+          label:[
+            {required: true, message: '请选择文章标签', trigger: 'change'}
+          ],
+          content:[
+            {required: true, message: '请输入文章内容', trigger: 'change'}
+          ]
+        }
       }
     },
     mounted() {
       this.createE();
+    },
+    watch:{
+      //对文章内容进行监听，并及时移除校验
+      "editor":{
+        deep:true,
+        handler(){
+          this.form.content = this.editor.txt.html();
+          this.$refs.form.clearValidate("content");
+        }
+      }
+    },
+    computed:{
     },
     methods:{
       createE(){
@@ -57,23 +84,26 @@ import { addComplexInformation } from "@/api/newsManage/complexInformation/index
       },
       //提交新闻资讯
       addContent(){
-        let data ={
-          title:"都是一些什么标题啊",
-          reTitle:"dsadas",
-          label:"党委会议",
-          content:"党委会议党委会议党委会议党委会议",
-          titleId:125,
-        }
-        addComplexInformation(data).then(res =>{
-          console.log(res);
-        })
+        
+        this.$refs.form.validate((valid) => {
+          if (valid) {
+            addComplexInformation(this.form).then(res =>{
+              if(res.success){
+                this.$message.success(res.successMessage);
+                this.resetForm();
+              }else{
+                this.$message.error(res.errMessage)
+              }
+            })
+          }
+        });
       },
       resetForm(){
         for(let i in this.form){
           this.form[i] = ""
         }
+        this.$refs.form.resetFields();
         this.editor.txt.clear();
-        this.newsLabel = []
       }
     }
 
