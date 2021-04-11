@@ -7,13 +7,11 @@ module.exports = {
     let id;
     await complexInformation.find({},(err,data)=>{
        if(data.length > 0){
-         console.log(data);
          id = Number(data[0].titleId) + 1;
        }
     }).sort({createTime:-1}).skip(0).limit(1);
     //插入提交时间
     req.body.createTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
-    console.log(id,"************");
     req.body.titleId = id;
     let addComplexInformation = new complexInformation(req.body)
     addComplexInformation.save((err)=>{
@@ -40,7 +38,8 @@ module.exports = {
   },
 
   //查询综合资讯内容
-  findComplexInformation(req,res){
+  async findComplexInformation(req,res){
+    let count = await complexInformation.countDocuments({})
     complexInformation.find({},(err,data)=>{
       if(!err){
         res.json({
@@ -49,6 +48,7 @@ module.exports = {
           failure:false,
           successMessage:'查找综合资讯成功',
           errMessage:null,
+          total:count,
           data:data
         })
       }else{
@@ -61,6 +61,6 @@ module.exports = {
           data:[]
         })
       }
-    }).sort({createTime:-1}).skip(req.body.page).limit(req.body.page*5);
+    }).sort({createTime:-1}).skip((req.body.page-1)*5).limit(5);
   }
 }

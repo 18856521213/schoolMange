@@ -15,7 +15,7 @@
             <span>{{ item.createTime }}</span>
         </div>
         <div class="foot-btn" v-if=" informationData.length != 0 ">
-            <span>--</span><el-button type="text">加载更多</el-button><span>--</span>
+            <span>--</span><el-button type="text" @click="loadMore">{{ btnContent }}</el-button><span>--</span>
         </div>
         <div class="foot-btn" v-else>
             <span>--</span><el-button type="text">暂无内容</el-button><span>--</span>
@@ -29,21 +29,42 @@ export default {
         return{
             informationData:[],//综合资讯数据
             page:1,//页数
+            btnContent:"加载更多",
+            total:0,
         }
     },
     created(){
         this.findComplexInformation();
     },
     methods:{
+        //参照综合资讯
         findComplexInformation(){
-            let data = {
-                page:this.page
-            }
-            findComplexInformation(data).then(res =>{
-                if(res.success){
-                    this.informationData = res.data;
+                let data = {
+                    page:this.page
                 }
-            })
+                findComplexInformation(data).then(res =>{
+                    if(res.success){
+                        this.informationData = res.data;
+                        this.total = res.total;
+                    }
+                })
+        },
+        //加载更多
+        loadMore(){
+            this.page += 1;
+           if(this.informationData.length < this.total){
+                let data = {
+                    page:this.page
+                }
+                findComplexInformation(data).then(res =>{
+                    if(res.success){
+                        this.informationData.push(...res.data);
+                    }
+                })
+           }else{
+               this.btnContent = "暂无更多";
+               return
+           }
         }
     }
 }
