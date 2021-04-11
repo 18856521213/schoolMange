@@ -7,15 +7,22 @@
  -->
 <template>
   <div class="box">
-    <el-form :inline="true" :model="form">
+    <el-form :inline="true" :model="filterForm">
       <el-form-item label="教师姓名">
-          <el-input size="small" v-model="form.teacherName"></el-input>
+          <el-input size="small" v-model="filterForm.teacherName"></el-input>
       </el-form-item>
-      <el-form-item label="教师类型">
-          <el-input size="small" v-model="form.teacherType"></el-input>
+      <el-form-item label="授课类型">
+          <el-select size="small" v-model="form.teacherSubject" clearable placeholder="请选择教授科目">
+            <el-option
+              v-for="item in subjectList"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
       </el-form-item>
       <el-form-item label="教师手机号">
-          <el-input size="small" v-model="form.teacherTel"></el-input>
+          <el-input size="small" v-model="filterForm.teacherTel"></el-input>
       </el-form-item>
       <el-form-item>
         <el-button size="mini" type="primary" icon="el-icon-search">搜索</el-button>
@@ -64,24 +71,103 @@
             :visible.sync="dialogVisible"
             @close="resetStudentInfo"
             :show-close="false"
-            width="350px"
+            width="1050px"
             :center="true">
             <div class="dialog-content">
-                <el-form ref="studentForm" :inline="true" :model="dialogForm" label-width="100px">
-                    <el-form-item label="学生姓名">
-                        <el-input size="small" placeholder="请输入学生姓名" v-model="dialogForm.name"></el-input>
+                <el-form ref="form" :rules="rules" :inline="true" :model="form" label-width="140px">
+                    <el-form-item label="教师姓名" prop="teacherName">
+                        <el-input size="small" v-model="form.teacherName" placeholder="请输入教师姓名"></el-input>
                     </el-form-item>
-                    <el-form-item size="small" label="学生年龄">
-                        <el-input placeholder="请输入学生年龄" v-model="dialogForm.age"></el-input>
+                    <el-form-item label="教师年纪" prop="teacherAge">
+                        <el-input size="small" maxlength="3" v-model="form.teacherAge" placeholder="请输入教师年纪"></el-input>
                     </el-form-item>
-                    <el-form-item label="学生父亲姓名">
-                        <el-input size="small" placeholder="请输入学生父亲姓名" v-model="dialogForm.fatherName"></el-input>
+                    <el-form-item label="教师身份证号" prop="teacherNumber">
+                        <el-input size="small" maxlength="18" v-model="form.teacherNumber" placeholder="请输入教师身份证号"></el-input>
                     </el-form-item>
-                    <el-form-item label="学生母亲姓名">
-                        <el-input size="small" placeholder="请输入学生母亲姓名" v-model="dialogForm.matherName"></el-input>
+                    <el-form-item label="教师手机号" prop="teacherTel">
+                        <el-input size="small" maxlength="11" v-model="form.teacherTel" placeholder="请输入教师手机号"></el-input>
                     </el-form-item>
-                    <el-form-item label="学生家庭住址">
-                        <el-input size="small" placeholder="请输入学生家庭住址" v-model="dialogForm.address"></el-input>
+                    <el-form-item label="教师微信号" prop="teacherWechat">
+                        <el-input size="small" v-model="form.teacherWechat" placeholder="请输入教师微信号"></el-input>
+                    </el-form-item>
+                    <el-form-item label="教师现住址" prop="teacherAdress">
+                        <el-input size="small" v-model="form.teacherAdress" placeholder="请输入教师现住址"></el-input>
+                    </el-form-item>
+                    <el-form-item label="教师母亲姓名" prop="teacherMatherName">
+                        <el-input size="small" v-model="form.teacherMatherName" placeholder="请输入教师母亲姓名"></el-input>
+                    </el-form-item>
+                    <el-form-item label="教师父亲姓名" prop="teacherFatherName">
+                        <el-input size="small" v-model="form.teacherFatherName" placeholder="请输入教师父亲姓名"></el-input>
+                    </el-form-item>
+                    <el-form-item label="教师出生日期" prop="teacherBron">
+                       <el-date-picker
+                        size="small"
+                        v-model="form.teacherBron"
+                        type="date"
+                        format="yyyy-MM-dd"
+                        value-format="yyyy-MM-dd"
+                        placeholder="选择日期">
+                      </el-date-picker>
+                    </el-form-item>
+                    <el-form-item label="教师学历" prop="teacherEducation">
+                        <el-select size="small" v-model="form.teacherEducation" clearable placeholder="请选择最高学历">
+                          <el-option
+                            v-for="item in educationList"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="教师级别" prop="teacherLevel">
+                        <el-select size="small" v-model="form.teacherLevel" clearable placeholder="请选择级别">
+                          <el-option
+                            v-for="item in levelList"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="教授科目" prop="teacherSubject">
+                        <el-select size="small" v-model="form.teacherSubject" clearable placeholder="请选择教授科目">
+                          <el-option
+                            v-for="item in subjectList"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="教师性别" prop="teacherSex">
+                        <el-select size="small" v-model="form.teacherSex" clearable placeholder="请选择教师性别">
+                          <el-option
+                            v-for="item in sexList"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="教师成分" prop="teacherIngredient">
+                        <el-select size="small" v-model="form.teacherIngredient" clearable placeholder="请选择教师成分">
+                          <el-option
+                            v-for="item in ingredientList"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
+                    </el-form-item>
+                    <el-form-item label="健康水平" prop="teacherHealth">
+                        <el-select size="small" v-model="form.teacherHealth" clearable placeholder="请选择教师健康水平">
+                          <el-option
+                            v-for="item in healthList"
+                            :key="item.value"
+                            :label="item.label"
+                            :value="item.value">
+                          </el-option>
+                        </el-select>
                     </el-form-item>
                 </el-form>
             </div>
@@ -93,17 +179,34 @@
 
   </div>
 </template>
-
 <script>
+import { addTeacher } from "@/api/peopleManage/teacherManage/index.js"
   export default {
     data() {
       return {
+        filterForm:{
+          teacherName:"",
+          teacherSubject:"",
+          teacherTel:"",
+        },
         form:{
           teacherName:"",
-          teacherType:"",
-          teacherTel:""
+          teacherEducation:"",
+          teacherAge:"",
+          teacherSex:"",
+          teacherIngredient:"",
+          teacherNumber:"",
+          teacherTel:"",
+          teacherWechat:"",
+          teacherBron:"",
+          teacherAdress:"",
+          teacherLevel:"",
+          teacherSubject:"",
+          teacherMatherName:"",
+          teacherFatherName:"",
+          teacherHealth:"",
         },
-        tableData:[{},{}],
+        tableData:[],
         page:{
             current: 1,
             size: 10,
@@ -113,6 +216,67 @@
         dialogVisible:false,
         dialogForm:{},
         title:"",
+        //学历列表
+        educationList:[
+          {label:"高中",value:"0"},
+          {label:"大专",value:"1"},
+          {label:"本科",value:"2"},
+          {label:"研究生",value:"3"},
+          {label:"博士",value:"4"},
+          {label:"博士后",value:"5"},
+        ],
+        //性别列表
+        sexList:[
+          {label:"女",value:"0"},
+          {label:"男",value:"1"},
+        ],
+        //教师成分
+        ingredientList:[
+          {label:"群众",value:"0"},
+          {label:"党员",value:"1"},
+          {label:"其他",value:"2"},
+        ],
+        //教师级别
+        levelList:[
+          {label:"普通教师",value:"0"},
+          {label:"班主任",value:"1"},
+          {label:"教导主任",value:"2"},
+        ],
+        //科目列表
+        subjectList:[
+          {label:"语文",value:"0"},
+          {label:"数学",value:"1"},
+          {label:"英语",value:"2"},
+          {label:"生物",value:"3"},
+          {label:"地理",value:"4"},
+          {label:"化学",value:"5"},
+          {label:"生物",value:"6"},
+          {label:"历史",value:"7"},
+          {label:"政治",value:"8"},
+        ],
+        //健康水平
+        healthList:[
+          {label:"优",value:"2"},
+          {label:"良",value:"1"},
+          {label:"差",value:"0"},
+        ],
+        //规则
+        rules:{
+          teacherName:[{required: true, message: '请输入教师姓名', trigger: 'blur'}],
+          teacherEducation:[{required: true, message: '请选择教育经历', trigger: 'change'}],
+          teacherAge:[{required: true, message: '请输入教师年纪', trigger: 'blur'}],
+          teacherSex:[{required: true, message: '请输入教师性别', trigger: 'blur'}],
+          teacherIngredient:[{required: true, message: '请选择教师成分', trigger: 'change'}],
+          teacherNumber:[{required: true, message: '请输入教师身份证号', trigger: 'blur'}],
+          teacherWechat:[{required: true, message: '请输入教师微信', trigger: 'blur'}],
+          teacherBron:[{required: true, message: '请输入教师出生日期', trigger: 'blur'}],
+          teacherAdress:[{required: true, message: '请输入教师现住址', trigger: 'blur'}],
+          teacherLevel:[{required: true, message: '请选择教师级别', trigger: 'change'}],
+          teacherSubject:[{required: true, message: '请选择教师所授科目', trigger: 'change'}],
+          teacherMatherName:[{required: true, message: '请输入教师母亲姓名', trigger: 'blur'}],
+          teacherFatherName:[{required: true, message: '请输入教师父亲姓名', trigger: 'blur'}],
+          teacherHealth:[{required: true, message: '请选择教师健康', trigger: 'change'}],
+        }
       }
     },
     mounted() {
@@ -130,7 +294,15 @@
         this.dialogVisible = true;
       },
       //提交按钮
-      submitBtn(){},
+      submitBtn(){
+         this.$refs.form.validate((valid) => {
+            if(valid){
+              addTeacher(this.form).then(res =>{
+                console.log(res);
+              })
+            }
+         })
+      },
       //重置弹框
       resetStudentInfo(){},
       //改变列表尺寸
@@ -150,5 +322,11 @@
 <style lang="less" scoped>
 .box{
   padding:10px 0;
+  /deep/ .el-input__inner{
+    width:180px;
+  }
+  /deep/ .el-date-editor.el-input, .el-date-editor.el-input__inner{
+    width:180px;
+  }
 }
 </style>

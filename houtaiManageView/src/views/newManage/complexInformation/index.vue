@@ -84,7 +84,6 @@ import { addComplexInformation } from "@/api/newsManage/complexInformation/index
       },
       //提交新闻资讯
       addContent(){
-        
         this.$refs.form.validate((valid) => {
           if (valid) {
             addComplexInformation(this.form).then(res =>{
