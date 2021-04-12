@@ -7,7 +7,7 @@ export function addTeacher(data){
     data:data
   })
 }
-//添加教师信息
+//查询教师信息
 export function findTeacher(data){
   return service({
     url:"/peopleManage/findTeacher",

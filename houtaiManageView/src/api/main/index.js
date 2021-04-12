@@ -16,7 +16,7 @@ export function findSchoolInformation(data){
   })
 }
 
-//查找校园信息资讯
+//查找奖学金资讯
 export function findScholarship(data){
   return service({
     url:"/newsManage/findScholarship",
