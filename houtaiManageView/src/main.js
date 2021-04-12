@@ -9,7 +9,7 @@ import ElementUI from 'element-ui';
 // import 'element-ui/lib/theme-chalk/index.css';
 //引入echarts
 import  * as echarts from "echarts";
-
+import { message } from '@/publicUtils/resetMessage'
 import App from './App.vue';
 import router from './router';
 import store from './store';
@@ -17,6 +17,7 @@ import store from './store';
 Vue.use(ElementUI);
 
 Vue.prototype.$echarts = echarts;
+Vue.prototype.$message = message;
 Vue.config.productionTip = false;
 
 new Vue({
