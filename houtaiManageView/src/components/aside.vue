@@ -60,6 +60,14 @@ export default {
                              {path:"/peopleManage/teacherManage",name:"教师管理"},
                         ]
                     },
+                    {
+                        name:"基础配置",
+                        icon:"el-icon-s-tools",
+                        path:"/basicConfiguration",
+                        children:[
+                             {path:"/basicConfiguration/swiperConfiguration",name:"轮播图配置"},
+                        ]
+                    },
                 ],
             },
         }

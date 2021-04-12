@@ -11,10 +11,16 @@ const complexInformation = () => import('@/views/newManage/complexInformation/')
 const schoolInformation = () => import('@/views/newManage/schoolInformation/')
 //奖学金管理(二级)
 const scholarship = () => import('@/views/newManage/scholarship/')
+
 //人员管理(一级)
 const peopleManage = () => import('@/views/peopleManage/')
 //教师管理(二级)
 const teacherManage = () => import('@/views/peopleManage/teacherManage/')
+
+//基础配置(一级)
+const basicConfiguration = () => import('@/views/basicConfiguration/')
+//轮播图(二级)
+const swiperConfiguration = () => import('@/views/basicConfiguration/swiperConfiguration/')
 const routes = [
   { 
     path: '/', 
@@ -77,6 +83,24 @@ const routes = [
         component: teacherManage,
         meta:{
           name:"教师管理"
+        }
+      },
+    ]
+  },
+  {
+    path: '/basicConfiguration',
+    name: 'basicConfiguration',
+    component: basicConfiguration,
+    meta:{
+      name:"基础配置"
+    },
+    children:[
+      {
+        path: 'swiperConfiguration',
+        name: 'swiperConfiguration',
+        component: swiperConfiguration,
+        meta:{
+          name:"轮播图配置"
         }
       },
     ]
