@@ -12,8 +12,10 @@ router.post('/findComplexInformation',complexInformation.findComplexInformation)
 //校园资讯接口
 //添加校园资讯
 router.post('/addSchoolInformation',schoolInformation.addSchoolInformation);
+router.post('/findSchoolInformation',schoolInformation.findSchoolInformation);
 
 //奖学金接口
 //添加奖学金资讯
 router.post('/addScholarship',scholarship.addScholarship);
+router.post('/findScholarship',scholarship.findScholarship);
 module.exports = router

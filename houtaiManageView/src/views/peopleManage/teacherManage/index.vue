@@ -9,10 +9,10 @@
   <div class="box">
     <el-form :inline="true" :model="filterForm">
       <el-form-item label="教师姓名">
-          <el-input size="small" v-model="filterForm.teacherName"></el-input>
+          <el-input size="small" v-model="filterForm.teacherName" placeholder="请输入教师姓名"></el-input>
       </el-form-item>
       <el-form-item label="授课类型">
-          <el-select size="small" v-model="form.teacherSubject" clearable placeholder="请选择教授科目">
+          <el-select size="small" v-model="filterForm.teacherSubject" clearable placeholder="请选择教授科目">
             <el-option
               v-for="item in subjectList"
               :key="item.value"
@@ -21,13 +21,13 @@
             </el-option>
           </el-select>
       </el-form-item>
-      <el-form-item label="教师手机号">
+      <el-form-item label="教师手机号" placeholder="请输入教师手机号">
           <el-input size="small" v-model="filterForm.teacherTel"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-button size="mini" type="primary" icon="el-icon-search">搜索</el-button>
+        <el-button size="mini" type="primary" @click="searchHandle" icon="el-icon-search">搜索</el-button>
         <el-button size="mini" type="primary" icon="el-icon-circle-plus" @click="addTeacher">新增教师</el-button>
-        <el-button size="mini" type="warning">重置</el-button>
+        <el-button size="mini" type="warning" @click="resetFilterForm">重置</el-button>
       </el-form-item>
     </el-form>
         <div>
@@ -37,16 +37,16 @@
             :header-cell-style="{background:'#19856f',color:'#fff'}"
             style="width: 100%">
                 <el-table-column type="index" :index="indexMethod" label="序号" width="60" align="center"></el-table-column>
-                <el-table-column prop="name" label="姓名" align="center"></el-table-column>
-                <el-table-column prop="age" label="年龄" align="center"></el-table-column>
-                <el-table-column prop="studyID" label="身份证号" align="center"></el-table-column>
-                <el-table-column prop="born" label="出生年月日" align="center"></el-table-column>
-                <el-table-column prop="sex" label="学生性别" align="center"></el-table-column>
-                <el-table-column prop="studentClass" label="所在班级" align="center"></el-table-column>
-                <el-table-column prop="fatherName" label="父亲姓名" align="center"></el-table-column>
-                <el-table-column prop="matherName" label="母亲姓名" align="center"></el-table-column>
-                <el-table-column prop="address" label="家庭住址" align="center"></el-table-column>
-                <el-table-column label="操作" align="center" width="220">
+                <el-table-column prop="teacherName" label="教师姓名" align="center"></el-table-column>
+                <el-table-column prop="teacherId" label="教师编号" align="center"></el-table-column>
+                <el-table-column prop="teacherSubject" label="所授科目" align="center" :formatter="resetSubject"></el-table-column>
+                <el-table-column prop="teacherSex" label="教师性别" align="center" :formatter="resetSex"></el-table-column>
+                <el-table-column prop="teacherAge" label="教师年纪" align="center"></el-table-column>
+                <el-table-column prop="teacherTel" label="教师手机号" align="center"></el-table-column>
+                <el-table-column prop="teacherNumber" label="教师身份证号" align="center"></el-table-column>
+                <el-table-column prop="teacherLevel" label="教师级别" align="center" :formatter="resetLevel"></el-table-column>
+                <el-table-column prop="createTime" label="创建时间" align="center"></el-table-column>
+                <el-table-column label="操作" align="center" width="170">
                  <template slot-scope="scope">
                     <el-button size="mini" @click="changeTeacher(scope.row)" type="primary">修改</el-button>
                     <el-button size="mini" @click="deleteTeacher(scope.row)" type="danger">删除</el-button>
@@ -69,12 +69,12 @@
         <el-dialog
             :title="title"
             :visible.sync="dialogVisible"
-            @close="resetStudentInfo"
+            @close="resetTeacherInfo"
             :show-close="false"
             width="1050px"
             :center="true">
             <div class="dialog-content">
-                <el-form ref="form" :rules="rules" :inline="true" :model="form" label-width="140px">
+                <el-form ref="form" :rules="rules" :inline="true" :model="form" label-width="120px">
                     <el-form-item label="教师姓名" prop="teacherName">
                         <el-input size="small" v-model="form.teacherName" placeholder="请输入教师姓名"></el-input>
                     </el-form-item>
@@ -180,7 +180,7 @@
   </div>
 </template>
 <script>
-import { addTeacher } from "@/api/peopleManage/teacherManage/index.js"
+import { addTeacher,findTeacher,deleteTeacher,updateTeacher } from "@/api/peopleManage/teacherManage/index.js"
   export default {
     data() {
       return {
@@ -280,14 +280,51 @@ import { addTeacher } from "@/api/peopleManage/teacherManage/index.js"
       }
     },
     mounted() {
-      },
+    },
+    created(){
+      this.getTeacherList();
+    },
     methods:{
+      //查询教师
+      getTeacherList(){
+        let data = {
+          page:{
+            size:this.page.size,
+            current:this.page.current
+          },
+          express:this.filterForm
+        };
+        findTeacher(data).then(res =>{
+          if(res.success){
+            this.tableData = res.data;
+            this.page.total = res.total;
+          }
+        })
+      },
+      //搜搜
+      searchHandle(){
+        this.page.current = 1;
+        this.getTeacherList();
+      },
       //修改表格序号
       indexMethod(index) {
           return (this.page.current - 1) * this.page.size + (index + 1)
       },
-      changeTeacher(){},
-      deleteTeacher(){},
+      changeTeacher(row){
+        Object.assign(this.form,row);
+        this.dialogVisible = true;
+      },
+      deleteTeacher(row){
+        let data = {
+         teacherId: row.teacherId
+        };
+        deleteTeacher(data).then(res =>{
+          if(res.success){
+            this.$message.success(res.successMessage);
+            this.getTeacherList();
+          }
+        })
+      },
       //新增教师
       addTeacher(){
         this.title = "添加教师" 
@@ -297,24 +334,72 @@ import { addTeacher } from "@/api/peopleManage/teacherManage/index.js"
       submitBtn(){
          this.$refs.form.validate((valid) => {
             if(valid){
-              addTeacher(this.form).then(res =>{
-                console.log(res);
-              })
+              if(!this.form.teacherId){
+                addTeacher(this.form).then(res =>{
+                  if(res.success){
+                    this.$message.success(res.successMessage);
+                    this.dialogVisible = false;
+                    this.getTeacherList();
+                  }
+                })
+              }else{
+                updateTeacher(this.form).then(res =>{
+                  if(res.success){
+                    this.$message.success(res.successMessage);
+                    this.dialogVisible = false;
+                    this.getTeacherList();
+                  }
+                })
+              }
             }
          })
       },
       //重置弹框
-      resetStudentInfo(){},
+      resetTeacherInfo(){
+        this.dialogVisible = false;
+        this.$refs.form.resetFields();
+      },
       //改变列表尺寸
       handleSizeChange(size){
           this.page.size = size;
           this.page.current = 1;
+          this.getTeacherList();
       },
       //跳转页数
       handleCurrentChange(current){
           this.page.current = current;
+          this.getTeacherList();
       },
-      
+      //重置过滤表单
+      resetFilterForm(){
+        for(let i in this.filterForm){
+          this.filterForm[i] = ""
+        }
+      },
+      //重置授课
+      resetSubject(row){
+        let subjectName;
+        this.subjectList.forEach(item =>{
+          if(item.value == row.teacherSubject){
+            subjectName = item.label;
+          }
+        })
+        return subjectName
+      },
+      //重置性别
+      resetSex(row){
+        return row.teacherSex == "0" ? "女" : "男"
+      },
+      //重置教师级别
+      resetLevel(row){
+        let levelName;
+        this.levelList.forEach(item =>{
+          if(item.value == row.teacherLevel){
+            levelName = item.label;
+          }
+        })
+        return levelName
+      },
     },
 
   }
@@ -322,11 +407,14 @@ import { addTeacher } from "@/api/peopleManage/teacherManage/index.js"
 <style lang="less" scoped>
 .box{
   padding:10px 0;
-  /deep/ .el-input__inner{
-    width:180px;
-  }
-  /deep/ .el-date-editor.el-input, .el-date-editor.el-input__inner{
-    width:180px;
+  .dialog-content{
+    /deep/ .el-input__inner{
+      width:180px;
+    }
+    /deep/ .el-date-editor.el-input, .el-date-editor.el-input__inner{
+      width:180px;
+    }
+
   }
 }
 </style>

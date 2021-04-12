@@ -7,64 +7,66 @@
  -->
 <template>
     <div class="box">
-        <div class="content" v-for="(item,index) in informationData" :key="item.id">
-            <span>{{ index+1 }}.</span>
-            <p>{{ item.content }}</p>
-            <span>{{ item.time }}</span>
+        <div class="content" v-for="item in informationData" :key="item.id">
+            <div>
+                <el-button plain type="primary" size="mini">{{item.label}}</el-button>
+            </div>
+            <p>{{ item.title }}</p>
+            <span>{{ item.createTime }}</span>
         </div>
-        <div class="foot-btn">
-            <span>--</span><el-button type="text">加载更多</el-button><span>--</span>
+        <div class="foot-btn" v-if=" informationData.length != 0 ">
+            <span>--</span><el-button type="text" @click="loadMore">{{ btnContent }}</el-button><span>--</span>
+        </div>
+        <div class="foot-btn" v-else>
+            <span>--</span><el-button type="text">暂无内容</el-button><span>--</span>
         </div>
     </div>
 </template>
 <script>
+import { findScholarship } from "@/api/main/index.js"
 export default {
         data(){
             return{
-                informationData:[
-                    {
-                        id:1,
-                        content:"高二三班的张萌回去励志奖学金",
-                        time:"2021.08.04"
-                    },
-                    {
-                        id:2,
-                        content:"高二三班的张萌回去励志奖学金",
-                        time:"2021.08.04"
-                    },
-                    {
-                        id:3,
-                        content:"高二三班的张萌回去励志奖学金",
-                        time:"2021.08.04"
-                    },
-                    {
-                        id:4,
-                        content:"高二三班的张萌回去励志奖学金",
-                        time:"2021.08.04"
-                    },
-                    {
-                        id:5,
-                        content:"高二三班的张萌回去励志奖学金",
-                        time:"2021.08.04"
-                    },
-                    {
-                        id:6,
-                        content:"高二三班的张萌回去励志奖学金",
-                        time:"2021.08.04"
-                    },
-                    {
-                        id:7,
-                        content:"高二三班的张萌回去励志奖学金",
-                        time:"2021.08.04"
-                    },
-                    {
-                        id:8,
-                        content:"高二三班的张萌回去励志奖学金高二三班的张萌回去励志奖学金高二三班的张萌回去励志奖学金高二三班的张萌回去励志奖学金",
-                        time:"2021.08.04"
-                    },
-                ]
+                informationData:[],//综合资讯数据
+                page:1,//页数
+                btnContent:"加载更多",
+                total:0,
             }
+        },
+    created(){
+        this.findScholarship();
+    },
+    methods:{
+        //参照综合资讯
+        findScholarship(){
+                let data = {
+                    page:this.page
+                }
+                findScholarship(data).then(res =>{
+                    if(res.success){
+                        this.informationData = res.data;
+                        this.total = res.total;
+                    }
+                })
+        },
+        //加载更多
+        loadMore(){
+            this.page += 1;
+           if(this.informationData.length < this.total){
+                let data = {
+                    page:this.page
+                }
+                findScholarship(data).then(res =>{
+                    if(res.success){
+                        this.informationData.push(...res.data);
+                    }
+                })
+           }else{
+               this.btnContent = "暂无更多";
+               return
+           }
         }
+    }
 }   
 </script>
 <style lang="less" scoped>
@@ -76,6 +78,7 @@ export default {
         font-size: 14px;
         cursor: pointer;
         p{
+            width:60%;
             padding:0 10px 0 5px;
             overflow: hidden;
             text-overflow:ellipsis;

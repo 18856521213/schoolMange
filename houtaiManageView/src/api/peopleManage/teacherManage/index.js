@@ -5,5 +5,31 @@ export function addTeacher(data){
     url:"/peopleManage/addTeacher",
     method:"post",
     data:data
-})
+  })
 }
+//添加教师信息
+export function findTeacher(data){
+  return service({
+    url:"/peopleManage/findTeacher",
+    method:"post",
+    data:data
+  })
+}
+//删除教师信息
+export function deleteTeacher(data){
+  return service({
+    url:"/peopleManage/deleteTeacher",
+    method:"post",
+    data:data
+  })
+}
+
+//更新教师信息
+export function updateTeacher(data){
+  return service({
+    url:"/peopleManage/updateTeacher",
+    method:"post",
+    data:data
+  })
+}
+

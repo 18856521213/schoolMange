@@ -9,60 +9,60 @@
     <div class="box">
         <div class="content" v-for="(item,index) in informationData" :key="item.id">
             <span>{{ index+1 }}.</span>
-            <p>{{ item.content }}</p>
-            <span>{{ item.time }}</span>
+            <p>{{ item.title }}</p>
+            <span>{{ item.createTime }}</span>
         </div>
-        <div class="foot-btn">
-            <span>--</span><el-button type="text">加载更多</el-button><span>--</span>
+        <div class="foot-btn" v-if=" informationData.length != 0 ">
+            <span>--</span><el-button type="text" @click="loadMore">{{ btnContent }}</el-button><span>--</span>
+        </div>
+        <div class="foot-btn" v-else>
+            <span>--</span><el-button type="text">暂无内容</el-button><span>--</span>
         </div>
     </div>
 </template>
 <script>
+import { findSchoolInformation } from "@/api/main/index.js"
 export default {
         data(){
             return{
-                informationData:[
-                    {
-                        id:1,
-                        content:"校内有什么喜讯，没有什么资讯，什么资讯都没有,都是杂七杂八的玩意儿",
-                        time:"2021.08.04"
-                    },
-                    {
-                        id:2,
-                        content:"校内有什么喜讯，没有什么资讯，什么资讯都没有,都是杂七杂八的玩意儿",
-                        time:"2021.08.04"
-                    },
-                    {
-                        id:3,
-                        content:"校内有什么喜讯，没有什么资讯，什么资讯都没有,都是杂七杂八的玩意儿",
-                        time:"2021.08.04"
-                    },
-                    {
-                        id:4,
-                        content:"校内有什么喜讯，没有什么资讯，什么资讯都没有,都是杂七杂八的玩意儿",
-                        time:"2021.08.04"
-                    },
-                    {
-                        id:5,
-                        content:"校内有什么喜讯，没有什么资讯，什么资讯都没有,都是杂七杂八的玩意儿",
-                        time:"2021.08.04"
-                    },
-                    {
-                        id:6,
-                        content:"校内有什么喜讯，没有什么资讯，什么资讯都没有,都是杂七杂八的玩意儿",
-                        time:"2021.08.04"
-                    },
-                    {
-                        id:7,
-                        content:"校内有什么喜讯，没有什么资讯，什么资讯都没有,都是杂七杂八的玩意儿",
-                        time:"2021.08.04"
-                    },
-                    {
-                        id:8,
-                        content:"校内有什么喜讯，没有什么资讯，什么资讯都没有,都是杂七杂八的玩意儿",
-                        time:"2021.08.04"
-                    },
-                ]
+                informationData:[],//综合资讯数据
+                page:1,//页数
+                btnContent:"加载更多",
+                total:0,
+            }
+        },
+        created(){
+            this.findSchoolInformation();
+        },
+        methods:{
+            //参照综合资讯
+            findSchoolInformation(){
+                    let data = {
+                        page:this.page
+                    }
+                    findSchoolInformation(data).then(res =>{
+                        if(res.success){
+                            this.informationData = res.data;
+                            this.total = res.total;
+                        }
+                    })
+            },
+            //加载更多
+            loadMore(){
+                this.page += 1;
+            if(this.informationData.length < this.total){
+                    let data = {
+                        page:this.page
+                    }
+                    findSchoolInformation(data).then(res =>{
+                        if(res.success){
+                            this.informationData.push(...res.data);
+                        }
+                    })
+            }else{
+                this.btnContent = "暂无更多";
+                return
+            }
             }
         }
 }   
@@ -76,7 +76,7 @@ export default {
         font-size: 14px;
         cursor: pointer;
         p{
-            width:78%;
+            width:60%;
             padding:0 10px 0 5px;
             overflow: hidden;
             text-overflow:ellipsis;

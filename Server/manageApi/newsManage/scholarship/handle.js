@@ -36,4 +36,32 @@ module.exports = {
       }
     })
   },
+
+  //查找校园资讯
+  async findScholarship(req,res){
+    let count = await scholarship.countDocuments({})
+    scholarship.find((err,data)=>{
+      if(!err){
+        res.json({
+          status:200,
+          success:true,
+          failure:false,
+          successMessage:'查找奖学金资讯成功',
+          errMessage:null,
+          data:data,
+          total:count
+        })
+      }else{
+        res.json({
+          status:200,
+          success:false,
+          failure:true,
+          successMessage:null,
+          errMessage:"查找奖学金资讯失败",
+          data:[],
+          total:0
+        })
+      }
+    }).sort({createTime:-1}).skip((req.body-1)*5).limit(5);
+  },
 }
