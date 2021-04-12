@@ -329,6 +329,7 @@ import { addTeacher,findTeacher,deleteTeacher,updateTeacher } from "@/api/people
       addTeacher(){
         this.title = "添加教师" 
         this.dialogVisible = true;
+        delete this.form.teacherId
       },
       //提交按钮
       submitBtn(){

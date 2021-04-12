@@ -18,7 +18,7 @@ module.exports = {
     let addTeacher = new teacherManage(req.body);
     addTeacher.save((err)=>{
       if(!err){
-        res.json({
+        res.status(200).json({
           status:200,
           success:true,
           failure:false,
@@ -27,13 +27,13 @@ module.exports = {
           data:null
         })
       }else{
-        res.json({
-          status:200,
+        res.status(400).json({
+          status:400,
           success:false,
           failure:true,
           successMessage:null,
           errMessage:"添加教师信息失败",
-          data:null
+          data:err
         })
       }
     })
@@ -48,7 +48,7 @@ module.exports = {
         teacherSubject:{$regex:req.body.express.teacherSubject},
         teacherTel:{$regex:req.body.express.teacherTel},
       };
-      teacherManage.find(filter,(err,data)=>{
+      teacherManage.find(filter,{__v:0,_id:0},(err,data)=>{
         if(!err){
           res.json({
             status:200,
