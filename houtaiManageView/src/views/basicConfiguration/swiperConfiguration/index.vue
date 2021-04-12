@@ -37,7 +37,7 @@ export default {
       }
     },
     methods:{
-      
+
     }
 }
 </script>
@@ -51,7 +51,7 @@ export default {
     color: #C0C4CC;
     cursor: pointer;
     &:hover{
-     color: #909399;
+     color: #19856f;
     }
     .add-btn{
       width:95%;
@@ -62,7 +62,7 @@ export default {
       align-items: center;
       font-size: 50px;
       &:hover{
-        border:5px solid #909399;
+        border:5px solid #19856f;
       }
     }
   }
