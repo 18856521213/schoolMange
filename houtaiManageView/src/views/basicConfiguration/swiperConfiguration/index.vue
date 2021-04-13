@@ -52,7 +52,7 @@
         </div>
         <div class="img-box">
           <div class="img">
-            <img src="../../../../src/assets/11a.png" alt="">
+            <img src="http://localhost:3001/upload_38f6843d03bed2bf1feb60a87713a629.jpg" alt="">
           </div>
           <div class="img-content">
             <h3>dshaiduisadhiasdhiasudhasui</h3>
