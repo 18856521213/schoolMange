@@ -23,7 +23,5 @@
     "nodemon": "^2.0.7",
     "yarn": "^1.22.10"
   },
-  "devDependencies": {
-    "formidable": "^1.2.2"
-  }
+  "devDependencies": {}
 }
