@@ -12,7 +12,7 @@ export function uploadSwiperImage(data){
 //查找轮播图片
 export function findSwiperImage(data){
     return service({
-        url:"/upload/findSwiperImage",
+        url:"/basicConfiguration/findSwiperImage",
         method:"post",
         data:data,
     })
@@ -20,7 +20,7 @@ export function findSwiperImage(data){
 //删除轮播图片
 export function deleteSwiperImage(data){
     return service({
-        url:"/upload/deleteSwiperImage",
+        url:"/basicConfiguration/deleteSwiperImage",
         method:"post",
         data:data,
     })

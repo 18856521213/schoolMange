@@ -18,7 +18,8 @@ const swiperImage = mongoose.Schema({
       imageId:{//图片编号
         type:Number,
         require:true,
-        index:true
+        index:true,
+        default:1
       },
       createTime:{//创建时间
         type:String,

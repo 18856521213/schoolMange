@@ -9,11 +9,13 @@ app.use(bodyParser.urlencoded({extended:false}));
 //引入管理后台的路由
 const newsManage = require('./manageApi/newsManage/router.js');
 const peopleManage = require('./manageApi/peopleManage/router.js');
+const basicConfiguration = require('./manageApi/basicConfiguration/router.js');
 const upload = require('./manageApi/upload/router.js');
 
 //引入后台管理接口
 app.use('/newsManage',newsManage);
 app.use('/peopleManage',peopleManage);
+app.use('/basicConfiguration',basicConfiguration);
 app.use('/upload',upload);
 app.use(express.static('upload'));
 const PORT = 3001;

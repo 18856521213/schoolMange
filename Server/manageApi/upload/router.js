@@ -12,9 +12,5 @@ router.use(formidable({
 );
 //上传轮播图
 router.post("/uploadSwiperImage",upload.uploadSwiperImage);
-//查找轮播图
-router.post("/findSwiperImage",upload.findSwiperImage);
-//删除图片
-router.post("/deleteSwiperImage",upload.deleteSwiperImage);
 
 module.exports = router

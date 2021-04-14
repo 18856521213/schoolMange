@@ -89,7 +89,6 @@ export default {
             let { data } = params;
             let parm = new FormData();
             parm.append("file",params.file);
-            parm.append("imageId",this.swiperList.length+1);
             for(let i in data){
               parm.append(i,data[i]);
             }
