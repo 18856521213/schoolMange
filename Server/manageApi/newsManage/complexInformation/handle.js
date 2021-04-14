@@ -1,5 +1,4 @@
 const complexInformation = require('../../../models/newsManage/complexInformation.js')
-const dayjs = require('dayjs')
 const { response } = require("../../../utils/response.js");
 module.exports = {
   //添加综合资讯
@@ -11,8 +10,6 @@ module.exports = {
          id = Number(data[0].titleId) + 1;
        }
     }).sort({createTime:-1}).skip(0).limit(1);
-    //插入提交时间
-    req.body.createTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
     req.body.titleId = id;
     let addComplexInformation = new complexInformation(req.body)
     addComplexInformation.save((err)=>{

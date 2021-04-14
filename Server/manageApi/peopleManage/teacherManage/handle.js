@@ -1,5 +1,4 @@
 const teacherManage = require('../../../models/peopleManage/teacherManage.js')
-const dayjs = require('dayjs');
 const { response } = require("../../../utils/response.js");
 module.exports = {
   //添加老师
@@ -15,7 +14,6 @@ module.exports = {
     }).sort({createTime:-1}).skip(0).limit(1)
     //开始对新增的数据做默认时间，和教师编号新增
     req.body.teacherId = teacherId;
-    req.body.createTime = dayjs().format('YYYY-MM-DD HH:mm:ss');
     let addTeacher = new teacherManage(req.body);
     addTeacher.save((err)=>{
       if(!err){

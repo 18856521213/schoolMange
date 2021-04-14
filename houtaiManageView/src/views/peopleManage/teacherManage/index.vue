@@ -276,6 +276,7 @@ import { addTeacher,findTeacher,deleteTeacher,updateTeacher } from "@/api/people
           teacherMatherName:[{required: true, message: '请输入教师母亲姓名', trigger: 'blur'}],
           teacherFatherName:[{required: true, message: '请输入教师父亲姓名', trigger: 'blur'}],
           teacherHealth:[{required: true, message: '请选择教师健康', trigger: 'change'}],
+          teacherTel:[{required: true, message: '请输入手机号', trigger: 'blur'}],
         }
       }
     },
@@ -359,6 +360,9 @@ import { addTeacher,findTeacher,deleteTeacher,updateTeacher } from "@/api/people
       resetTeacherInfo(){
         this.dialogVisible = false;
         this.$refs.form.resetFields();
+        for(let i in this.form){
+          this.form[i] = ""
+        }
       },
       //改变列表尺寸
       handleSizeChange(size){

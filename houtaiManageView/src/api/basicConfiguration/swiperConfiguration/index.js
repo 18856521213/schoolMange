@@ -9,3 +9,19 @@ export function uploadSwiperImage(data){
         headers:{ 'content-type': 'multipart/form-data' }
     })
 }
+//查找轮播图片
+export function findSwiperImage(data){
+    return service({
+        url:"/upload/findSwiperImage",
+        method:"post",
+        data:data,
+    })
+}
+//删除轮播图片
+export function deleteSwiperImage(data){
+    return service({
+        url:"/upload/deleteSwiperImage",
+        method:"post",
+        data:data,
+    })
+}

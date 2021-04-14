@@ -36,7 +36,7 @@
         </div>
         <div class="upload-form">
           <el-form :model="swiperForm" :rules="rule" ref="swiperForm">
-            <el-form-item label="图片标题">
+            <el-form-item label="图片标题" prop="title">
               <el-input placeholder="请输入标题" v-model="swiperForm.title"></el-input>
             </el-form-item>
             <el-form-item label="图片描述">
@@ -45,20 +45,19 @@
           </el-form>
         </div>
       </el-card>
-      <el-card class="box-card mb">
+      <el-card class="box-card mb" v-for="(item,index) in swiperList" :key="item.imageUrl">
         <div slot="header" class="clearfix">
-          <span>轮播图1</span>
-          <el-button style="float: right; padding: 3px 0" type="text">编辑</el-button>
-          <el-button style="float: right; padding: 3px 0" type="text">删除</el-button>
+          <span>轮播图{{index+1}}/5</span>
+          <el-button style="float: right; padding: 3px 0" type="text" @click="deleteSwiper(item)">删除</el-button>
         </div>
         <div class="img-box">
           <div class="img">
-            <img src="http://127.0.0.1:3001/image/upload_38f6843d03bed2bf1feb60a87713a629.jpg" alt="轮播图">
+            <img :src="item.imageUrl" alt="轮播图">
           </div>
           <div class="img-content">
-            <h3>dshaiduisadhiasdhiasudhasui</h3>
-            <p>dhsaifhisahdsiadhasiuhdiasudhiasuhdiasuhdiuashdiu</p>
-            <p><em>[图片链接]https://www.baidu.com</em></p>
+            <h3>{{ item.title }}</h3>
+            <p>{{ item.desc}}</p>
+            <p><em>[图片链接]{{ item.imageUrl }}</em></p>
           </div>
         </div>
       </el-card>
@@ -66,7 +65,7 @@
   </div>
 </template>
 <script>
-import { uploadSwiperImage } from "@/api/basicConfiguration/swiperConfiguration/index.js"
+import { uploadSwiperImage,findSwiperImage,deleteSwiperImage } from "@/api/basicConfiguration/swiperConfiguration/index.js"
 export default {
     data(){
       return{
@@ -81,10 +80,12 @@ export default {
         }
       }
     },
+    created() {
+      this.findSwiperImage();
+    },
     methods:{
       //文件上传
         uploadFile(params){
-          console.log(params);
             let { data } = params;
             let parm = new FormData();
             parm.append("file",params.file);
@@ -94,18 +95,56 @@ export default {
             }
             uploadSwiperImage(parm).then(res=>{
                 if(res.success){
-                    this.dialogVisible3 = false;
                     this.fileList = [];
-                    this.$message.success("批量添加成功")
-                    this.getStudentList()
+                    for(let i in this.swiperForm){
+                      this.swiperForm[i] = ""
+                    }
+                    this.$refs.swiperForm.resetFields();
+                    this.$message.success("添加成功")
+                    this.findSwiperImage()
                 }
             })
         },
+        //查找轮播图
+        findSwiperImage(){
+          findSwiperImage().then(res=>{
+            console.log(res);
+            if(res.success){
+              this.swiperList = res.data;
+            }
+          })
+        },
+        //删除轮播图
+        deleteSwiper(value){
+          console.log(value);
+          let data ={
+            imageId:value.imageId,
+            imageUrl:value.imageUrl
+          }
+          deleteSwiperImage(data).then(res =>{
+            console.log(res);
+            this.findSwiperImage();
+          })
+        },
         //改变文件触发的回调
-        changeFile(file,fileList){},
+        changeFile(file,fileList){
+          this.fileList = fileList
+        },
         //添加按钮
         addSwiperImage(){
-          this.$refs.upload.submit();
+          if(this.swiperList.length >5 ){
+            this.$message.warning("最多只能添加5张轮播图");
+            return
+          }
+          if(this.fileList.length == 0 ){
+            this.$message.warning("请先上传图片");
+            return
+          }
+          this.$refs.swiperForm.validate((valid) => {
+            if(valid){
+              this.$refs.upload.submit();
+            }
+          })
         }
 
     }
