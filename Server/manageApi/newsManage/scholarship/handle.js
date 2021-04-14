@@ -1,5 +1,6 @@
 const scholarship = require('../../../models/newsManage/scholarship.js')
 const dayjs = require('dayjs')
+const { response } = require("../../../utils/response.js");
 module.exports = {
   //添加综合资讯
   async addScholarship(req,res){
@@ -16,23 +17,9 @@ module.exports = {
     let addScholarship = new scholarship(req.body)
     addScholarship.save((err)=>{
       if(!err){
-        res.json({
-          status:200,
-          success:true,
-          failure:false,
-          successMessage:'添加奖学金资讯成功',
-          errMessage:null,
-          data:null
-        })
+        response(res,200,true,"添加奖学金资讯成功");
       }else{
-        res.json({
-          status:200,
-          success:false,
-          failure:true,
-          successMessage:null,
-          errMessage:"添加奖学金资讯失败",
-          data:null
-        })
+        response(res,200,false,"添加奖学金资讯失败");
       }
     })
   },
@@ -42,25 +29,9 @@ module.exports = {
     let count = await scholarship.countDocuments({})
     scholarship.find((err,data)=>{
       if(!err){
-        res.json({
-          status:200,
-          success:true,
-          failure:false,
-          successMessage:'查找奖学金资讯成功',
-          errMessage:null,
-          data:data,
-          total:count
-        })
+        response(res,200,true,"查找奖学金资讯成功",count,data);
       }else{
-        res.json({
-          status:200,
-          success:false,
-          failure:true,
-          successMessage:null,
-          errMessage:"查找奖学金资讯失败",
-          data:[],
-          total:0
-        })
+        response(res,200,false,"查找奖学金资讯失败",0,[]);
       }
     }).sort({createTime:-1}).skip((req.body-1)*5).limit(5);
   },

@@ -320,7 +320,7 @@ import { addTeacher,findTeacher,deleteTeacher,updateTeacher } from "@/api/people
         };
         deleteTeacher(data).then(res =>{
           if(res.success){
-            this.$message.success(res.successMessage);
+            this.$message.success(res.message);
             this.getTeacherList();
           }
         })
@@ -338,7 +338,7 @@ import { addTeacher,findTeacher,deleteTeacher,updateTeacher } from "@/api/people
               if(!this.form.teacherId){
                 addTeacher(this.form).then(res =>{
                   if(res.success){
-                    this.$message.success(res.successMessage);
+                    this.$message.success(res.message);
                     this.dialogVisible = false;
                     this.getTeacherList();
                   }
@@ -346,7 +346,7 @@ import { addTeacher,findTeacher,deleteTeacher,updateTeacher } from "@/api/people
               }else{
                 updateTeacher(this.form).then(res =>{
                   if(res.success){
-                    this.$message.success(res.successMessage);
+                    this.$message.success(res.message);
                     this.dialogVisible = false;
                     this.getTeacherList();
                   }

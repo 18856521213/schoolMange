@@ -1,5 +1,6 @@
 const complexInformation = require('../../../models/newsManage/complexInformation.js')
 const dayjs = require('dayjs')
+const { response } = require("../../../utils/response.js");
 module.exports = {
   //添加综合资讯
   async addComplexInformation(req,res){
@@ -16,23 +17,9 @@ module.exports = {
     let addComplexInformation = new complexInformation(req.body)
     addComplexInformation.save((err)=>{
       if(!err){
-        res.json({
-          status:200,
-          success:true,
-          failure:false,
-          successMessage:'添加综合资讯成功',
-          errMessage:null,
-          data:null
-        })
+        response(res,200,true,"添加综合资讯成功");
       }else{
-        res.json({
-          status:200,
-          success:false,
-          failure:true,
-          successMessage:null,
-          errMessage:"添加综合资讯失败",
-          data:null
-        })
+        response(res,200,false,"添加综合资讯失败");
       }
     })
   },
@@ -42,24 +29,10 @@ module.exports = {
     let count = await complexInformation.countDocuments({})
     complexInformation.find({},(err,data)=>{
       if(!err){
-        res.json({
-          status:200,
-          success:true,
-          failure:false,
-          successMessage:'查找综合资讯成功',
-          errMessage:null,
-          total:count,
-          data:data
-        })
+        response(res,200,true,"查找综合资讯成功",count,data);
       }else{
-        res.json({
-          status:200,
-          success:false,
-          failure:true,
-          successMessage:null,
-          errMessage:"查找综合资讯失败",
-          data:[]
-        })
+        response(res,200,false,"查找综合资讯失败",0,[]);
+
       }
     }).sort({createTime:-1}).skip((req.body.page-1)*5).limit(5);
   }

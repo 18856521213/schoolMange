@@ -73,10 +73,10 @@ import { addSchoolInformation } from "@/api/newsManage/schoolInformation/index.j
           if (valid) {
             addSchoolInformation(this.form).then(res =>{
               if(res.success){
-                this.$message.success(res.successMessage);
+                this.$message.success(res.message);
                 this.resetForm();
               }else{
-                this.$message.error(res.errMessage)
+                this.$message.error(res.message)
               }
             })
           }

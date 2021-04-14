@@ -1,5 +1,6 @@
 const teacherManage = require('../../../models/peopleManage/teacherManage.js')
 const dayjs = require('dayjs');
+const { response } = require("../../../utils/response.js");
 module.exports = {
   //添加老师
  async addTeacher(req,res){
@@ -18,23 +19,9 @@ module.exports = {
     let addTeacher = new teacherManage(req.body);
     addTeacher.save((err)=>{
       if(!err){
-        res.status(200).json({
-          status:200,
-          success:true,
-          failure:false,
-          successMessage:'添加教师信息成功',
-          errMessage:null,
-          data:null
-        })
+        response(res,200,true,"添加教师信息成功");
       }else{
-        res.status(400).json({
-          status:400,
-          success:false,
-          failure:true,
-          successMessage:null,
-          errMessage:"添加教师信息失败",
-          data:err
-        })
+        response(res,200,false,"添加教师信息失败");
       }
     })
   },
@@ -50,37 +37,13 @@ module.exports = {
       };
       teacherManage.find(filter,{__v:0,_id:0},(err,data)=>{
         if(!err){
-          res.json({
-            status:200,
-            success:true,
-            failure:false,
-            successMessage:'查找教师信息成功',
-            errMessage:null,
-            data:data,
-            total:count
-          })
+          response(res,200,true,"查找教师信息成功",count,data);
         }else{
-          res.json({
-            status:200,
-            success:false,
-            failure:true,
-            successMessage:null,
-            errMessage:"查找教师信息失败",
-            data:[],
-            total:0
-          })
+          response(res,200,false,"查找教师信息失败",0,[]);
         }
       }).sort({createTime:-1}).skip((req.body.page.current-1)*req.body.page.size).limit(req.body.page.size);
     }else{
-      res.json({
-        status:200,
-        success:false,
-        failure:true,
-        successMessage:null,
-        errMessage:"查找教师信息失败",
-        data:[],
-        total:0
-      })
+      response(res,200,false,"查找教师信息失败",0,[]);
     }
   },
 
@@ -89,23 +52,9 @@ module.exports = {
     teacherManage.deleteOne(req.body,(err,result)=>{
       if(!err){
         if(!err){
-          res.json({
-            status:200,
-            success:true,
-            failure:false,
-            successMessage:'删除教师信息成功',
-            errMessage:null,
-            data:null
-          })
+          response(res,200,true,"删除教师信息成功");
         }else{
-          res.json({
-            status:200,
-            success:false,
-            failure:true,
-            successMessage:null,
-            errMessage:"删除教师信息失败",
-            data:null
-          })
+          response(res,200,true,"删除教师信息失败");
         }
       }
     })
@@ -116,23 +65,9 @@ module.exports = {
     teacherManage.updateOne({teacherId:req.body.teacherId},req.body,err=>{
       if(!err){
         if(!err){
-          res.json({
-            status:200,
-            success:true,
-            failure:false,
-            successMessage:'更新教师信息成功',
-            errMessage:null,
-            data:null
-          })
+          response(res,200,true,"更新教师信息成功");
         }else{
-          res.json({
-            status:200,
-            success:false,
-            failure:true,
-            successMessage:null,
-            errMessage:"更新教师信息失败",
-            data:null
-          })
+          response(res,200,true,"更新教师信息失败");
         }
       }
     })

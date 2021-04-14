@@ -88,10 +88,10 @@ import { addComplexInformation } from "@/api/newsManage/complexInformation/index
           if (valid) {
             addComplexInformation(this.form).then(res =>{
               if(res.success){
-                this.$message.success(res.successMessage);
+                this.$message.success(res.message);
                 this.resetForm();
               }else{
-                this.$message.error(res.errMessage)
+                this.$message.error(res.message)
               }
             })
           }

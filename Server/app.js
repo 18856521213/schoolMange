@@ -15,8 +15,13 @@ const upload = require('./manageApi/upload/router.js');
 app.use('/newsManage',newsManage);
 app.use('/peopleManage',peopleManage);
 app.use('/upload',upload);
-app.use(express.static('upload'));
+app.use("/image",express.static('upload'));
 const PORT = 3001;
-app.listen(PORT,()=>{
-    console.log(`RUN IN: http://localhost:${PORT}`)
-});
+// app.listen(PORT,()=>{
+//     console.log(`RUN IN: http://localhost:${PORT}`)
+// });
+const server = app.listen(PORT, 'localhost', function () {
+    const host = server.address().address
+    const port = server.address().port
+    console.log("应用实例，访问地址为 http://%s:%s", host, port)
+})

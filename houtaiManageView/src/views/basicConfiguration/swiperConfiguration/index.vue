@@ -27,19 +27,20 @@
             :auto-upload="false"
             action="#"
             :multiple="false"
-            :file-list="fileList">
+            :file-list="fileList"
+            :data="swiperForm">
             <i class="el-icon-upload"></i>
             <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
             <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，尺寸为750*400px,且不超过500kb</div>
           </el-upload>
         </div>
         <div class="upload-form">
-          <el-form>
+          <el-form :model="swiperForm" :rules="rule" ref="swiperForm">
             <el-form-item label="图片标题">
-              <el-input placeholder="请输入标题"></el-input>
+              <el-input placeholder="请输入标题" v-model="swiperForm.title"></el-input>
             </el-form-item>
             <el-form-item label="图片描述">
-              <el-input placeholder="请输入图片描述" class="no-resize" type="textarea"></el-input>
+              <el-input placeholder="请输入图片描述" class="no-resize" type="textarea"  v-model="swiperForm.desc"></el-input>
             </el-form-item>
           </el-form>
         </div>
@@ -52,7 +53,7 @@
         </div>
         <div class="img-box">
           <div class="img">
-            <img src="http://localhost:3001/upload_38f6843d03bed2bf1feb60a87713a629.jpg" alt="">
+            <img src="http://127.0.0.1:3001/image/upload_38f6843d03bed2bf1feb60a87713a629.jpg" alt="轮播图">
           </div>
           <div class="img-content">
             <h3>dshaiduisadhiasdhiasudhasui</h3>
@@ -70,14 +71,28 @@ export default {
     data(){
       return{
         fileList:[],//文件列表
+        swiperForm:{
+          title:"",
+          desc:""
+        },
+        swiperList:[],
+        rule:{
+          title:[{required:true,message:"请输入图片标题", trigger: 'change'}],
+        }
       }
     },
     methods:{
       //文件上传
         uploadFile(params){
-            let data = new FormData();
-            data.append("file",params.file);
-            uploadSwiperImage(data).then(res=>{
+          console.log(params);
+            let { data } = params;
+            let parm = new FormData();
+            parm.append("file",params.file);
+            parm.append("imageId",this.swiperList.length+1);
+            for(let i in data){
+              parm.append(i,data[i]);
+            }
+            uploadSwiperImage(parm).then(res=>{
                 if(res.success){
                     this.dialogVisible3 = false;
                     this.fileList = [];
