@@ -141,6 +141,7 @@ export default {
           }
           this.$refs.swiperForm.validate((valid) => {
             if(valid){
+              console.log(11)
               this.$refs.upload.submit();
             }
           })
@@ -199,6 +200,11 @@ export default {
           }
         }
       }
+    }
+  }
+  /deep/ .el-upload-list__item {
+    img{
+      width:15%;
     }
   }
 }
