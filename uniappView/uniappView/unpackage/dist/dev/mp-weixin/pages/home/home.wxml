@@ -1,1 +1,0 @@
-<view class="content"><image class="logo" src="http://127.0.0.1:3001/image/upload_11f7a19e567ad51450735cf4c2e39534.jpg"></image><view class="text-area"><text class="title">{{title}}</text></view></view>
