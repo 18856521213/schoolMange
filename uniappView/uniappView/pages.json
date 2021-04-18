@@ -1,16 +1,66 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/index/index",
+			"path": "pages/home/home",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/class/class",
+			"style": {
+				"navigationBarTitleText": "班级管理"
+			}
+		},
+		{
+			"path": "pages/student/student",
+			"style": {
+				"navigationBarTitleText": "学生管理"
+			}
+		},
+		{
+			"path": "pages/me/me",
+			"style": {
+				"navigationBarTitleText": "个人中心"
 			}
 		}
 	],
 	"globalStyle": {
-		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "uni-app",
-		"navigationBarBackgroundColor": "#F8F8F8",
-		"backgroundColor": "#F8F8F8"
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "教务系统",
+		"navigationBarBackgroundColor": "#19856f",
+		"backgroundColor": "#19856f"
+	},
+	"tabBar": {
+	    "color": "#7A7E83",
+	    "selectedColor": "#19856f",
+	    "borderStyle": "black",
+	    "backgroundColor": "#ffffff",
+	    "list": [
+			{
+				"pagePath": "pages/home/home",
+				"iconPath": "static/tabarImg/home.png",
+				"selectedIconPath": "static/tabarImg/selectHome.png",
+				"text": "首页"
+			},
+			{
+				"pagePath": "pages/class/class",
+				"iconPath": "static/tabarImg/class.png",
+				"selectedIconPath": "static/tabarImg/selectClass.png",
+				"text": "班级管理"
+			},
+			{
+				"pagePath": "pages/student/student",
+				"iconPath": "static/tabarImg/student.png",
+				"selectedIconPath": "static/tabarImg/selectStudent.png",
+				"text": "学生管理"
+			},
+			{
+				"pagePath": "pages/me/me",
+				"iconPath": "static/tabarImg/me.png",
+				"selectedIconPath": "static/tabarImg/selectMe.png",
+				"text": "个人中心"
+			}
+		]
 	}
 }
