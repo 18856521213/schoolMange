@@ -1,5 +1,5 @@
 import request from "../index.js";
-export function getStudentList(data){
+export function getSwiperList(data){
 	 return request({
 		url:"/basicConfiguration/findSwiperImage",
 		data:data
