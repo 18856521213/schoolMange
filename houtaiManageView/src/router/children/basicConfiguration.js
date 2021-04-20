@@ -2,6 +2,8 @@
 const basicConfiguration = () => import('@/views/basicConfiguration/')
 //轮播图(二级)
 const swiperConfiguration = () => import('@/views/basicConfiguration/swiperConfiguration/')
+//导航栏配置(二级)
+const tabarConfiguration = () => import('@/views/basicConfiguration/tabarConfiguration/')
 
 export default[
     {
@@ -18,6 +20,14 @@ export default[
             component: swiperConfiguration,
             meta:{
               name:"轮播图配置"
+            }
+          },
+          {
+            path: 'tabarConfiguration',
+            name: 'tabarConfiguration',
+            component: tabarConfiguration,
+            meta:{
+              name:"导航栏配置"
             }
           },
         ]

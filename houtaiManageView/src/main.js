@@ -13,6 +13,7 @@ import { message } from '@/publicUtils/resetMessage'
 import App from './App.vue';
 import router from './router';
 import store from './store';
+import "@/publicUtils/directives.js"
 
 Vue.use(ElementUI);
 
