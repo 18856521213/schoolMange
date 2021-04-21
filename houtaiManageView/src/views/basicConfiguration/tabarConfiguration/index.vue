@@ -25,36 +25,58 @@
           width="1050px"
           :center="true">
           <div class="dialog-content">
-              <el-form ref="form" :rules="rules" :inline="true" :model="form" label-width="120px">
-                  <el-form-item label="教师姓名" prop="teacherName">
-                      <el-input size="small" v-model="form.teacherName" placeholder="请输入教师姓名"></el-input>
-                  </el-form-item>
-                  <el-form-item label="教师出生日期" prop="teacherBron">
-                    <el-date-picker
-                      size="small"
-                      v-model="form.teacherBron"
-                      type="date"
-                      format="yyyy-MM-dd"
-                      value-format="yyyy-MM-dd"
-                      placeholder="选择日期">
-                    </el-date-picker>
-                  </el-form-item>
-              </el-form>
+              <el-upload
+                class="upload-demo"
+                ref="upload"
+                :http-request="uploadFile"
+                drag
+                :limit="1"
+                list-type="picture"
+                :on-change="changeFile"
+                accept=".jpg,.png"
+                :auto-upload="false"
+                action="#"
+                :multiple="false"
+                :file-list="fileList"
+                :data="form">
+                <i class="el-icon-upload"></i>
+                <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+                <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，尺寸为800*800，且不超过500kb</div>
+              </el-upload>
+              <div class="form-box">
+                <el-form ref="form" :rules="rules" :model="form" label-width="120px">
+                    <el-form-item label="导航栏标题">
+                      <el-input size="small" v-model="form.title"></el-input>
+                    </el-form-item>
+                    <el-form-item label="导航栏路径">
+                      <el-input size="small" v-model="form.path"></el-input>
+                    </el-form-item>
+                    <el-form-item label="导航栏描述">
+                      <el-input type="textarea" size="small" v-model="form.desc"></el-input>
+                    </el-form-item>
+                </el-form>
+              </div>
           </div>
           <span slot="footer" class="dialog-footer">
               <el-button size="mini" @click="dialogVisible = false">取 消</el-button>
-              <el-button size="mini" type="primary" @click="submitBtn">确 定</el-button>
+              <el-button size="mini" type="primary" @click="addTabarImage">确定添加</el-button>
           </span>
       </el-dialog>
 
     </div>
 </template>
 <script>
+import { uploadTabarImage } from "@/api/basicConfiguration/uploadTabarImage/index.js"
 export default {
     data() {
       return {
         dialogVisible:false,
-        form:{},
+        form:{
+          title:"",
+          path:"",
+          desc:""
+        },
+        fileList:[],
         rules:{},
       }
     },
@@ -63,7 +85,40 @@ export default {
         console.log(111)
       },
 
-      resetTeacherInfo(){}
+      resetTeacherInfo(){},
+      //文件上传
+      uploadFile(params){
+          let { data } = params;
+          let parm = new FormData();
+          parm.append("file",params.file);
+          for(let i in data){
+            parm.append(i,data[i]);
+          }
+          uploadTabarImage(parm).then(res=>{
+              if(res.success){
+                  this.fileList = [];
+                  this.$message.success("添加成功")
+              }
+          })
+      },
+      //改变文件触发的回调
+      changeFile(file,fileList){
+        this.fileList = fileList
+      },
+            //添加按钮
+      addTabarImage(){
+        if(this.fileList.length == 0 ){
+          this.$message.warning("请先上传图片");
+          return
+        }
+        this.$refs.swiperForm.validate((valid) => {
+          if(valid){
+            this.$refs.upload.submit();
+          }
+        })
+      }
+
+
     },
 }
 </script>
@@ -119,6 +174,15 @@ export default {
       text-overflow:ellipsis;
     }
   }  
+  .dialog-content{
+    position: relative;
+    .form-box{
+      position:absolute;
+      left: 350px;
+      top:10px;
+      width: 550px;
+    }
+  }
 }   
 
 // 动画
