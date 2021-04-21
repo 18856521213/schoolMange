@@ -127,7 +127,7 @@ export default {
   padding: 5px;
   display:flex;
   .addIcon{
-    width: 20%;
+    width: 220px;
     height:294px;
     border: 3px solid #C0C4CC;
     display: flex;
@@ -142,7 +142,7 @@ export default {
     }
   }
   .content-item{
-    width: 20%;
+    width: 220px;
     height:300px;
     margin-right:5px;
     background-color: #fff;
