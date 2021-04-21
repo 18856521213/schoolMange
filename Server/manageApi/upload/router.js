@@ -12,5 +12,6 @@ router.use(formidable({
 );
 //上传轮播图
 router.post("/uploadSwiperImage",upload.uploadSwiperImage);
-
+//上传导航栏图片
+router.post("/uploadTabarImage",upload.uploadTabarImage);
 module.exports = router

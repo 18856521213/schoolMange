@@ -1,16 +1,13 @@
 const mongoose = require('../index');
 const dayjs = require('dayjs');
 //定义添加轮播图数据结构
-const swiperImage = mongoose.Schema({
+const tabarImage = mongoose.Schema({
     title:{//图片标题
         type:String,
         require:true,
         index:true
       },
       desc:{//图片描述
-        type:String,
-      },
-      path:{//跳转地址
         type:String,
       },
       imageUrl:{//图片地址
@@ -31,4 +28,4 @@ const swiperImage = mongoose.Schema({
     
   })  
 
-  module.exports = mongoose.model('Swiper', swiperImage,'swiper')
+  module.exports = mongoose.model('Tabar', tabarImage,'tabar')
