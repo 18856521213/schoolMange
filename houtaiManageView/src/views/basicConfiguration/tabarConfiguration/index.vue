@@ -111,11 +111,11 @@ export default {
           this.$message.warning("请先上传图片");
           return
         }
-        this.$refs.swiperForm.validate((valid) => {
-          if(valid){
-            this.$refs.upload.submit();
-          }
-        })
+          this.$refs.upload.submit();
+        // this.$refs.swiperForm.validate((valid) => {
+        //   if(valid){
+        //   }
+        // })
       }
 
 
