@@ -1,16 +1,21 @@
 <template>
     <div class="content">
-        <div class="content-item">
+        <div class="content-item" @mouseover="showBtn" @mouseout="noShowBtn">
            <div class="img">
              <img src="../../../assets/icon/data.png" alt="">
            </div>
            <div>
              <h5>都是有什么问题想问的吗</h5>
            </div>
-           <div>
-             <p>都是有什么问题想问的吗都是有什么问题想问的吗
-               都是有什么问题想问的吗都是有什么问题想问的吗
-               都是有什么问题想问的吗都是有什么问题想问的吗都是有什么问题想问的吗都是有什么问题想问的吗都是有什么问题想问的吗</p>
+           <div class="font-box">
+             <p>都是有什么问题想问的吗都是有什么问题想问的吗</p>
+             <span>/dnsajiodnasi/dsanodiasndio</span>
+           </div>
+           <div class="show-btn">
+             <div v-show="btnFlag">
+                <el-button type="text" @click="deleteTabar">删除</el-button>
+                <el-button type="text" @click="editTabar">编辑</el-button>
+             </div>
            </div>
         </div>
         <div class="addIcon" @click="dialogVisible = true ">
@@ -45,13 +50,13 @@
               </el-upload>
               <div class="form-box">
                 <el-form ref="form" :rules="rules" :model="form" label-width="120px">
-                    <el-form-item label="导航栏标题">
+                    <el-form-item label="导航栏标题" prop="title">
                       <el-input size="small" v-model="form.title"></el-input>
                     </el-form-item>
-                    <el-form-item label="导航栏路径">
-                      <el-input size="small" v-model="form.path"></el-input>
+                    <el-form-item label="导航栏路径" prop="path">
+                      <el-input size="small" v-filterSpecialCharChinese v-model="form.path"></el-input>
                     </el-form-item>
-                    <el-form-item label="导航栏描述">
+                    <el-form-item label="导航栏描述" prop="desc">
                       <el-input type="textarea" size="small" v-model="form.desc"></el-input>
                     </el-form-item>
                 </el-form>
@@ -66,7 +71,7 @@
     </div>
 </template>
 <script>
-import { uploadTabarImage } from "@/api/basicConfiguration/uploadTabarImage/index.js"
+import { uploadTabarImage,findTabarImage,deleteTabarImage } from "@/api/basicConfiguration/tabarConfiguration/index.js"
 export default {
     data() {
       return {
@@ -77,12 +82,22 @@ export default {
           desc:""
         },
         fileList:[],
-        rules:{},
+        btnFlag:false,
+        rules:{
+          title:[{required:true,message:"请填写标题",trigger: 'blur'}],
+          path:[{required:true,message:"请填写导航栏路径",trigger: 'blur'}],
+          desc:[{required:true,message:"请填写导航栏描述",trigger: 'blur'}],
+        },
       }
     },
+    created() {
+      this.findTabarImage();
+    },
     methods: {
-      addTabar(){
-        console.log(111)
+      findTabarImage(){
+        findTabarImage().then(res =>{
+          console.log(res);
+        })
       },
 
       resetTeacherInfo(){},
@@ -116,6 +131,20 @@ export default {
             this.$refs.upload.submit();
           }
         })
+      },
+      //删除导航栏
+      deleteTabar(item){
+
+      },
+      //编辑
+      editTabar(item){
+
+      },
+      showBtn(){
+        this.btnFlag = true;
+      },
+      noShowBtn(){
+        this.btnFlag = false;
       }
 
 
@@ -127,7 +156,7 @@ export default {
   padding: 5px;
   display:flex;
   .addIcon{
-    width: 20%;
+    width: 210px;
     height:294px;
     border: 3px solid #C0C4CC;
     display: flex;
@@ -142,7 +171,7 @@ export default {
     }
   }
   .content-item{
-    width: 20%;
+    width: 210px;
     height:300px;
     margin-right:5px;
     background-color: #fff;
@@ -163,16 +192,26 @@ export default {
       color:#19856f;
       margin: 20px 10px 0px 10px;
     }
-    p{
-      word-wrap: break-word;
-    	word-break: break-all;    
-      padding: 0 10px;
-      font-size: 14px;
-      color: #585858;
-      height: 95px;
-      overflow: hidden;
-      text-overflow:ellipsis;
+    .font-box{
+      text-align: center;
+      p{
+        word-wrap: break-word;
+        word-break: break-all;    
+        padding: 0 10px;
+        font-size: 12px;
+        color: #585858;
+        height: 45px;
+        overflow: hidden;
+        text-overflow:ellipsis;
+      }
+      span{
+        font-size: 12px;
+      }
     }
+    .show-btn{
+      height: 50px;
+    }
+
   }  
   .dialog-content{
     position: relative;
@@ -180,7 +219,7 @@ export default {
       position:absolute;
       left: 350px;
       top:10px;
-      width: 550px;
+      width: 650px;
     }
   }
 }   

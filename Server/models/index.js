@@ -10,20 +10,20 @@ mongoose.set('useFindAndModify', false)
 const DBNAME = 'school'
 
 // 2.连接本地数据库
-// mongoose.connect(`mongodb://localhost:27017/${DBNAME}`, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-//   // 使用 unique 或者 索引 时要加
-//   useCreateIndex: true
-// })
-
-// 链接线上数据库
-mongoose.connect("mongodb+srv://test:test1234@cluster0.b1xje.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
+mongoose.connect(`mongodb://localhost:27017/${DBNAME}`, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   // 使用 unique 或者 索引 时要加
   useCreateIndex: true
 })
+
+// 链接线上数据库
+// mongoose.connect("mongodb+srv://test:test1234@cluster0.b1xje.mongodb.net/myFirstDatabase?retryWrites=true&w=majority", {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+//   // 使用 unique 或者 索引 时要加
+//   useCreateIndex: true
+// })
 
 mongoose.connection.on('error', () => { console.log('数据库连接失败la~') })
 
