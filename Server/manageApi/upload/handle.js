@@ -11,7 +11,7 @@ module.exports ={
             if(!err){
                 if(data.length > 0 ){
                     console.log(data)
-                    imageId = Number(data[0].imageId);
+                    imageId = Number(data[0].imageId)+1;
                 }else{
                     imageId = 1 
                 }
@@ -41,7 +41,7 @@ module.exports ={
             if(!err){
                 if(data.length > 0 ){
                     console.log(data)
-                    imageId = Number(data[0].imageId);
+                    imageId = Number(data[0].imageId)+1;
                 }else{
                     imageId = 1 
                 }
