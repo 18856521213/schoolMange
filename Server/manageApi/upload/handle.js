@@ -3,6 +3,8 @@ const tabar = require('../../models/basicConfiguration/tabarConfiguration.js')
 const path = require("path");
 const { response } = require("../../utils/response.js");
 const url = "http://127.0.0.1:3001/image/";
+const dayjs = require('dayjs');
+
 module.exports ={
     //上传轮播图的api
     async uploadSwiperImage(req,res){
@@ -10,7 +12,6 @@ module.exports ={
         await swiper.find({},(err,data)=>{
             if(!err){
                 if(data.length > 0 ){
-                    console.log(data)
                     imageId = Number(data[0].imageId)+1;
                 }else{
                     imageId = 1 
@@ -23,6 +24,7 @@ module.exports ={
             desc:req.fields.desc,
             imageId:imageId,
             imageUrl:`${url}${fileName.base}`,
+            createTime:dayjs().format('YYYY-MM-DD HH:mm:ss')
         }
         let addSwiper = new swiper(data);
         addSwiper.save(err=>{
@@ -39,8 +41,8 @@ module.exports ={
         let imageId;
         await tabar.find({},(err,data)=>{
             if(!err){
+                console.log(data);
                 if(data.length > 0 ){
-                    console.log(data)
                     imageId = Number(data[0].imageId)+1;
                 }else{
                     imageId = 1 
@@ -54,6 +56,7 @@ module.exports ={
             imageId:imageId,
             path:req.fields.path,
             imageUrl:`${url}${fileName.base}`,
+            createTime:dayjs().format('YYYY-MM-DD HH:mm:ss')
         }
         let addTabar = new tabar(data);
         addTabar.save(err=>{

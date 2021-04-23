@@ -1,21 +1,23 @@
 <template>
     <div class="content">
-        <div class="content-item" @mouseover="showBtn" @mouseout="noShowBtn">
+        <div class="content-item" v-for="item in tabarList" :key="item.imageId" @mouseover="showBtn(item)" @mouseout="noShowBtn(item)">
            <div class="img">
-             <img src="../../../assets/icon/data.png" alt="">
+             <img :src="item.imageUrl" alt="">
            </div>
            <div>
-             <h5>都是有什么问题想问的吗</h5>
+             <h5>{{ item.title }}</h5>
            </div>
            <div class="font-box">
-             <p>都是有什么问题想问的吗都是有什么问题想问的吗</p>
-             <span>/dnsajiodnasi/dsanodiasndio</span>
+             <p>{{ item.desc }}</p>
+             <span>{{ item.path }}</span>
            </div>
            <div class="show-btn">
-             <div v-show="btnFlag">
-                <el-button type="text" @click="deleteTabar">删除</el-button>
-                <el-button type="text" @click="editTabar">编辑</el-button>
-             </div>
+             <transition name="el-fade-in-linear">
+              <div v-show="item.flag">
+                  <el-button type="text" @click="deleteTabar(item)">删除</el-button>
+                  <el-button type="text" @click="editTabar(item)">编辑</el-button>
+              </div>
+            </transition>
            </div>
         </div>
         <div class="addIcon" @click="dialogVisible = true ">
@@ -81,6 +83,7 @@ export default {
           path:"",
           desc:""
         },
+        tabarList:[],
         fileList:[],
         btnFlag:false,
         rules:{
@@ -97,6 +100,9 @@ export default {
       findTabarImage(){
         findTabarImage().then(res =>{
           console.log(res);
+          if(res.success){
+            this.tabarList = res.data;
+          }
         })
       },
 
@@ -112,6 +118,9 @@ export default {
           uploadTabarImage(parm).then(res=>{
               if(res.success){
                   this.fileList = [];
+                  this.$refs.form.resetFields();
+                  this.dialogVisible = false;
+                  this.findTabarImage();
                   this.$message.success("添加成功")
               }
           })
@@ -126,7 +135,7 @@ export default {
           this.$message.warning("请先上传图片");
           return
         }
-        this.$refs.swiperForm.validate((valid) => {
+        this.$refs.form.validate((valid) => {
           if(valid){
             this.$refs.upload.submit();
           }
@@ -134,17 +143,43 @@ export default {
       },
       //删除导航栏
       deleteTabar(item){
-
+        this.$confirm('此操作将永久删除该信息, 是否继续?', '提示', {
+                  confirmButtonText: '确定',
+                  cancelButtonText: '取消',
+                  type: 'warning'
+                }).then(() => {
+                  let data ={
+                    imageId:item.imageId,
+                    imageUrl:item.imageUrl
+                  }
+                  deleteTabarImage(data).then(res =>{
+                    if(res.success){
+                      this.findTabarImage();
+                      this.$message(res.message)
+                    }
+                  })
+                  this.$message({type: 'success', message: '删除成功!'});
+                }).catch(() => {
+                  this.$message({ type: 'info',message: '已取消删除'});          
+                });    
       },
       //编辑
       editTabar(item){
 
       },
-      showBtn(){
-        this.btnFlag = true;
+      showBtn(value){
+        this.tabarList.forEach(item =>{
+          if(item.imageId == value.imageId){
+            item.flag = true;
+          }
+        })
       },
-      noShowBtn(){
-        this.btnFlag = false;
+      noShowBtn(value){
+        this.tabarList.forEach(item =>{
+          if(item.imageId == value.imageId){
+            item.flag = false;
+          }
+        })
       }
 
 

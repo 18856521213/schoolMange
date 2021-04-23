@@ -10,6 +10,11 @@ const tabarImage = mongoose.Schema({
       desc:{//图片描述
         type:String,
       },
+      path:{//跳转路径
+        type:String,
+        require:true,
+        index:true
+      },
       imageUrl:{//图片地址
         type:String,
         require:true,
