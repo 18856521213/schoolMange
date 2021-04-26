@@ -107,7 +107,6 @@ export default {
         //查找轮播图
         findSwiperImage(){
           findSwiperImage().then(res=>{
-            console.log(res);
             if(res.success){
               this.swiperList = res.data;
             }
@@ -115,13 +114,11 @@ export default {
         },
         //删除轮播图
         deleteSwiper(value){
-          console.log(value);
           let data ={
             imageId:value.imageId,
             imageUrl:value.imageUrl
           }
           deleteSwiperImage(data).then(res =>{
-            console.log(res);
             this.findSwiperImage();
           })
         },

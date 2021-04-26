@@ -67,6 +67,7 @@ export default {
                         children:[
                              {path:"/basicConfiguration/swiperConfiguration",name:"轮播图配置"},
                              {path:"/basicConfiguration/tabarConfiguration",name:"导航栏配置"},
+                             {path:"/basicConfiguration/classConfiguration",name:"班级配置"},
                         ]
                     },
                 ],

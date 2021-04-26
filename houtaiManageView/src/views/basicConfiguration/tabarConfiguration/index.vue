@@ -1,6 +1,7 @@
 <template>
     <div class="content">
-        <div class="content-item" v-for="item in tabarList" :key="item.imageId" @mouseover="showBtn(item)" @mouseout="noShowBtn(item)">
+       <transition name="el-fade-in-linear" v-for="item in tabarList" :key="item.imageId">
+        <div class="content-item">
            <div class="img">
              <img :src="item.imageUrl" alt="">
            </div>
@@ -12,14 +13,12 @@
              <span>{{ item.path }}</span>
            </div>
            <div class="show-btn">
-             <transition name="el-fade-in-linear">
-              <div v-show="item.flag">
                   <el-button type="text" @click="deleteTabar(item)">删除</el-button>
                   <el-button type="text" @click="editTabar(item)">编辑</el-button>
-              </div>
-            </transition>
            </div>
         </div>
+      </transition>
+
         <div class="addIcon" @click="dialogVisible = true ">
             <i class="el-icon-plus"></i>
         </div>
@@ -85,7 +84,7 @@ export default {
         },
         tabarList:[],
         fileList:[],
-        btnFlag:false,
+        editForm:{},
         rules:{
           title:[{required:true,message:"请填写标题",trigger: 'blur'}],
           path:[{required:true,message:"请填写导航栏路径",trigger: 'blur'}],
@@ -99,7 +98,6 @@ export default {
     methods: {
       findTabarImage(){
         findTabarImage().then(res =>{
-          console.log(res);
           if(res.success){
             this.tabarList = res.data;
           }
@@ -165,22 +163,9 @@ export default {
       },
       //编辑
       editTabar(item){
+        this.editForm = item
 
       },
-      showBtn(value){
-        this.tabarList.forEach(item =>{
-          if(item.imageId == value.imageId){
-            item.flag = true;
-          }
-        })
-      },
-      noShowBtn(value){
-        this.tabarList.forEach(item =>{
-          if(item.imageId == value.imageId){
-            item.flag = false;
-          }
-        })
-      }
 
 
     },

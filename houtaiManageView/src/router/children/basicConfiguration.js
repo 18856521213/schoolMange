@@ -5,6 +5,9 @@ const swiperConfiguration = () => import('@/views/basicConfiguration/swiperConfi
 //导航栏配置(二级)
 const tabarConfiguration = () => import('@/views/basicConfiguration/tabarConfiguration/')
 
+//班级配置(二级)
+const classConfiguration = () => import('@/views/basicConfiguration/classConfiguration/')
+
 export default[
     {
         path: '/basicConfiguration',
@@ -28,6 +31,14 @@ export default[
             component: tabarConfiguration,
             meta:{
               name:"导航栏配置"
+            }
+          },
+          {
+            path: 'classConfiguration',
+            name: 'classConfiguration',
+            component: classConfiguration,
+            meta:{
+              name:"班级配置"
             }
           },
         ]

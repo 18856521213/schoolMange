@@ -41,7 +41,6 @@ module.exports ={
         let imageId;
         await tabar.find({},(err,data)=>{
             if(!err){
-                console.log(data);
                 if(data.length > 0 ){
                     imageId = Number(data[0].imageId)+1;
                 }else{
@@ -63,7 +62,6 @@ module.exports ={
             if(!err){
                 response(res,200,true,"添加图片成功");
             }else{
-                console.log(err);
                 response(res,200,false,"添加图片失败");
             }
         })
