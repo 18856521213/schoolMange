@@ -238,9 +238,9 @@ import { addTeacher,findTeacher,deleteTeacher,updateTeacher } from "@/api/people
         ],
         //教师级别
         levelList:[
-          {label:"普通教师",value:"0"},
-          {label:"班主任",value:"1"},
-          {label:"教导主任",value:"2"},
+          {label:"普通教师",value:0},
+          {label:"班主任",value:1},
+          {label:"教导主任",value:2},
         ],
         //科目列表
         subjectList:[
@@ -299,6 +299,9 @@ import { addTeacher,findTeacher,deleteTeacher,updateTeacher } from "@/api/people
           if(res.success){
             this.tableData = res.data;
             this.page.total = res.total;
+          }else{
+            this.tableData = [];
+            this.page.total = 0;
           }
         })
       },

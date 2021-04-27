@@ -53,7 +53,7 @@ const teacherDB = mongoose.Schema({
     type:String,
   },
   teacherLevel:{//教师级别
-    type:String,
+    type:Number,
     index:true,
     require:true,
     enum:[0,1,2] //0普通教师，1班主任，2教导主任，
@@ -75,6 +75,12 @@ const teacherDB = mongoose.Schema({
     require:true,
     default:0,
     enum:[0,1,2],//0差1良2优
+  },
+  teacherStatus:{//教师状态，是否激活
+    type:Number,
+    require:true,
+    default:0,
+    enum:[0,1],//0未激活 1已激活
   },
   createTime:{//文章创建
     type:String,

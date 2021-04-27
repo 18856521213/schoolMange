@@ -12,7 +12,7 @@
             </el-form-item>
             <el-form-item>
                 <el-button size="mini" type="primary" icon="el-icon-search">查询</el-button>
-                <el-button size="mini" type="primary" icon="el-icon-circle-plus">添加班级</el-button>
+                <el-button size="mini" type="primary" icon="el-icon-circle-plus" @click="dialogVisible = true">添加班级</el-button>
                 <el-button size="mini" type="warning" >重置</el-button>
             </el-form-item>
         </el-form>
@@ -24,11 +24,72 @@
                 <div class="student-num">人数：40人</div>
             </div>
         </div>
+        <el-dialog
+          title="添加导航栏"
+          :visible.sync="dialogVisible"
+          @close="resetTeacherInfo"
+          :show-close="false"
+          width="550px"
+          :center="true">
+          <div class="dialog-content">
+              <div class="form-box">
+                <el-form  ref="form" :rules="rules" :model="form" label-width="120px">
+                    <el-form-item label="班级名称" prop="title">
+                      <el-input size="small" v-model="form.className"></el-input>
+                    </el-form-item>
+                    <el-form-item label="班主任名称" prop="path">
+                        <el-select size="small" v-model="form.headTeacher" placeholder="请选择">
+                            <el-option
+                            v-for="item in  headTeacherList"
+                            :key="item.teacherId"
+                            :label="item.teacherName"
+                            :value="item.teacherId">
+                            </el-option>
+                        </el-select>                    
+                    </el-form-item>
+                    <el-form-item label="班级人数" prop="desc">
+                      <el-input size="small" v-model="form.desc"></el-input>
+                    </el-form-item>
+                </el-form>
+              </div>
+          </div>
+          <span slot="footer" class="dialog-footer">
+              <el-button size="mini" @click="dialogVisible = false">取 消</el-button>
+              <el-button size="mini" type="primary" @click="addClass">确定添加</el-button>
+          </span>
+      </el-dialog>
     </div>
 </template>
 <script>
+import { findHandStudent } from "@/api/basicConfiguration/classConfiguration/index.js"
 export default {
-    
+    data() {
+        return {
+            //班主任下拉值
+            headTeacherList:[],
+            form:{},
+            dialogVisible:false,
+            //规则
+            rules:{}
+        }
+    },
+    created() {
+        this.findHandStudents();
+    },
+    methods: {
+        //查找教师下拉值
+        findHandStudents(){
+            findHandStudent({}).then(res =>{
+                console.log(res);
+                if(res.success){
+                    this.headTeacherList = res.data;
+                }
+            })
+        },
+        //添加班级
+        addClass(){},
+        resetTeacherInfo(){}
+    },
 }
 </script>
 <style lang="less" scoped>
