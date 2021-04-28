@@ -29,16 +29,16 @@
           :visible.sync="dialogVisible"
           @close="resetTeacherInfo"
           :show-close="false"
-          width="550px"
+          width="450px"
           :center="true">
           <div class="dialog-content">
               <div class="form-box">
                 <el-form  ref="form" :rules="rules" :model="form" label-width="120px">
-                    <el-form-item label="班级名称" prop="title">
+                    <el-form-item label="班级名称" prop="className">
                       <el-input size="small" v-model="form.className"></el-input>
                     </el-form-item>
-                    <el-form-item label="班主任名称" prop="path">
-                        <el-select size="small" v-model="form.headTeacher" placeholder="请选择">
+                    <el-form-item label="班主任名称" prop="headTeacher">
+                        <el-select size="small" clearable v-model="form.headTeacherId" placeholder="请选择">
                             <el-option
                             v-for="item in  headTeacherList"
                             :key="item.teacherId"
@@ -47,8 +47,8 @@
                             </el-option>
                         </el-select>                    
                     </el-form-item>
-                    <el-form-item label="班级人数" prop="desc">
-                      <el-input size="small" v-model="form.desc"></el-input>
+                    <el-form-item label="班级人数" prop="classNumber">
+                      <el-input size="small" v-model="form.classNumber"></el-input>
                     </el-form-item>
                 </el-form>
               </div>
@@ -61,16 +61,24 @@
     </div>
 </template>
 <script>
-import { findHandStudent } from "@/api/basicConfiguration/classConfiguration/index.js"
+import { findHandStudent,addNewClass } from "@/api/basicConfiguration/classConfiguration/index.js"
 export default {
     data() {
         return {
             //班主任下拉值
             headTeacherList:[],
-            form:{},
+            form:{
+                className:"",
+                headTeacherId:"",
+                classNumber:""
+            },
             dialogVisible:false,
             //规则
-            rules:{}
+            rules:{
+                className:[{required:true,message:"请输入班级名称", trigger: 'blur'}],
+                headTeacherId:[{required:true,message:"请输入班主任姓名", trigger: 'change'}],
+                classNumber:[{required:true,message:"请输入班级人数", trigger: 'blur'}],
+            }
         }
     },
     created() {
@@ -87,7 +95,15 @@ export default {
             })
         },
         //添加班级
-        addClass(){},
+        addClass(){
+             this.$refs.form.validate((valid) => {
+                 if(valid){
+                     addNewClass(this.form).then(res =>{
+                         console.log(res);
+                     })
+                 }
+             })
+        },
         resetTeacherInfo(){}
     },
 }
@@ -95,6 +111,9 @@ export default {
 <style lang="less" scoped>
 .box{
     padding-top: 15px;
+    .dialog-content{
+        width:320px;
+    }
     .content{
         width: 100%;
         .content-item{

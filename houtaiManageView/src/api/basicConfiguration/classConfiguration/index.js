@@ -8,3 +8,11 @@ export function findHandStudent(data){
         data:data,
     })
 }
+//查找教师下拉值
+export function addNewClass(data){
+    return service({
+        url:"/basicConfiguration/addNewClass",
+        method:"post",
+        data:data,
+    })
+}

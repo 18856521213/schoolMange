@@ -80,7 +80,6 @@ export default {
     methods: {
         getFullPath(){
           this.fullPath = this.$route.fullPath
-          console.log(this.fullPath,this.$route.fullPath);
         },
         handleOpen(key, keyPath) {
         },

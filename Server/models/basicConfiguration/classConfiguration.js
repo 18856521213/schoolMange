@@ -7,7 +7,12 @@ const studentClass = mongoose.Schema({
         require:true,
         index:true
     },
-    headTeacherr:{//班主任姓名
+    headTeacher:{//班主任姓名
+        type:String,
+        require:true,
+        index:true
+    },
+    headTeacherId:{//班主任编号
         type:String,
         require:true,
         index:true

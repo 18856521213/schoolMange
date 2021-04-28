@@ -76,7 +76,7 @@ export default {
         },
         swiperList:[],
         rule:{
-          title:[{required:true,message:"请输入图片标题", trigger: 'change'}],
+          title:[{required:true,message:"请输入图片标题", trigger: 'blur'}],
         }
       }
     },
