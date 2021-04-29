@@ -1,17 +1,21 @@
 <template>
     <div class="box">
         <el-form :inline="true">
-            <el-form-item label="班主任姓名：">
-                <el-input size="small"></el-input>
+            <el-form-item label="班主任名称" prop="headTeacher">
+                <el-select size="small" clearable v-model="filterForm.headTeacherId" placeholder="请选择">
+                    <el-option
+                    v-for="item in  headTeacherList"
+                    :key="item.teacherId"
+                    :label="item.teacherName"
+                    :value="item.teacherId">
+                    </el-option>
+                </el-select>                    
             </el-form-item>
             <el-form-item label="班级名称：">
-                <el-input size="small"></el-input>
-            </el-form-item>
-            <el-form-item label="年级名称：">
-                <el-input size="small"></el-input>
+                <el-input size="small" v-model="filterForm.className"></el-input>
             </el-form-item>
             <el-form-item>
-                <el-button size="mini" type="primary" icon="el-icon-search">查询</el-button>
+                <el-button size="mini" type="primary" icon="el-icon-search" @click="findClass">查询</el-button>
                 <el-button size="mini" type="primary" icon="el-icon-circle-plus" @click="dialogVisible = true">添加班级</el-button>
                 <el-button size="mini" type="warning" >重置</el-button>
             </el-form-item>
@@ -61,10 +65,15 @@
     </div>
 </template>
 <script>
-import { findHandStudent,addNewClass } from "@/api/basicConfiguration/classConfiguration/index.js"
+import { findHandStudent,addNewClass,findClass } from "@/api/basicConfiguration/classConfiguration/index.js"
 export default {
     data() {
         return {
+            //过滤表单的数据
+            filterForm:{
+                className:"",
+                headTeacherId:""
+            },
             //班主任下拉值
             headTeacherList:[],
             form:{
@@ -82,9 +91,19 @@ export default {
         }
     },
     created() {
+        this.findClass();
         this.findHandStudents();
     },
     methods: {
+        //查找班级
+        findClass(){
+            let data={
+                express:this.filterForm
+            }
+            findClass(data).then(res =>{
+                console.log(res);
+            })
+        },
         //查找教师下拉值
         findHandStudents(){
             findHandStudent({}).then(res =>{

@@ -47,5 +47,24 @@ module.exports = {
           response(res,200,false,"添加新班级失败");
         }
       })
+    },
+    //查找班级
+    async findClass(req,res){
+      let count = await studentClass.countDocuments({});
+      if(count != 0){
+        let filter = {
+          headTeacherId:req.body.express.teacherName,
+          className:{$regex:req.body.express.className},
+        };
+        studentClass.find(filter,{__v:0,_id:0},(err,data)=>{
+          if(!err){
+            response(res,200,true,"查找班级信息成功",count,data);
+          }else{
+            response(res,200,false,"查找班级信息失败",0,[]);
+          }
+        }).sort({createTime:-1});
+      }else{
+        response(res,200,false,"查找班级信息失败",0,[]);
+      }    
     }
 }

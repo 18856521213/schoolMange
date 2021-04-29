@@ -16,6 +16,7 @@ router.post('/deleteTabarImage',tabar.deleteTabarImage);
 //班级接口
 router.post('/findHandStudent',studentClass.findHandStudent);
 router.post('/addNewClass',studentClass.addNewClass);
+router.post('/findClass',studentClass.findClass);
 
 module.exports = router
 
