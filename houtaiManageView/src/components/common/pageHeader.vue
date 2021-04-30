@@ -9,17 +9,18 @@
 <template>
     <div class="box">
          <transition name="el-zoom-in-center">
-             <span v-show="Fuflag">{{fuTitle}}</span>
+             <span v-show="Fuflag">{{ routeName.matched[0].meta.name }}</span>
         </transition>
          <transition name="el-zoom-in-center">
             <span v-show="flag"> > </span>
         </transition>
          <transition name="el-zoom-in-center">
-             <span v-show="flag">{{title}}</span>
+             <span v-show="flag">{{ routeName.meta.name}}</span>
         </transition>
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
     data(){
         return{
@@ -28,29 +29,13 @@ export default {
         }
     },
     watch:{
-        fuTitle(newVal){
-            this.Fuflag = !this.Fuflag
-            setTimeout(() => {
-                this.Fuflag = !this.Fuflag
-            }, 300);
-        },
-        title(newVal){
-            this.flag = !this.flag
-            setTimeout(() => {
-                this.flag = !this.flag
-            }, 300);
-        }
     },
     computed:{
-        fuTitle(){
-            return this.$route.matched[0].meta.name;
-        },
-        title(){
-            return this.$route.meta.name;
-        }
+        ...mapState(['routeName'])
         
     },
     created(){
+        console.log(this.routeName);
     },
     methods: {
     },

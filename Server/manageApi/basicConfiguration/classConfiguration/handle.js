@@ -64,7 +64,7 @@ module.exports = {
           }
         }).sort({createTime:-1});
       }else{
-        response(res,200,false,"查找班级信息失败",0,[]);
+        response(res,200,false,"暂无班级信息",0,[]);
       }    
     }
 }

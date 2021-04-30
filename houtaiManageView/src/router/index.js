@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from '@/store';
 Vue.use(VueRouter)
 import home from "./children/home.js"
 import newsManage from "./children/newsManage.js"
@@ -21,6 +22,8 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
+  //将路由信息放置vuex中进行统一管理
+  store.commit("getRouteName",to);
   if(to.meta.name){
     document.title = to.meta.name
   }
