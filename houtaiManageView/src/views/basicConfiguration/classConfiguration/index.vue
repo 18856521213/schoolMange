@@ -22,10 +22,10 @@
         </el-form>
         <el-divider></el-divider>
         <div class="content">
-            <div class="content-item">
-                <div class="item-top">高三五班</div>
-                <div class="class-teacher">班主任：张晓明</div>
-                <div class="student-num">人数：40人</div>
+            <div class="content-item" v-for="item in classList" :key="item.classId">
+                <div class="item-top">{{ item.className }}</div>
+                <div class="class-teacher">班主任:{{ item.headTeacher }}</div>
+                <div class="student-num">人数：{{ item.classNumber }}人</div>
             </div>
         </div>
         <el-dialog
@@ -41,7 +41,7 @@
                     <el-form-item label="班级名称" prop="className">
                       <el-input size="small" v-model="form.className"></el-input>
                     </el-form-item>
-                    <el-form-item label="班主任名称" prop="headTeacher">
+                    <el-form-item label="班主任名称" prop="headTeacherId">
                         <el-select size="small" clearable v-model="form.headTeacherId" placeholder="请选择">
                             <el-option
                             v-for="item in  headTeacherList"
@@ -74,6 +74,7 @@ export default {
                 className:"",
                 headTeacherId:""
             },
+            classList:[],
             //班主任下拉值
             headTeacherList:[],
             form:{
@@ -85,7 +86,7 @@ export default {
             //规则
             rules:{
                 className:[{required:true,message:"请输入班级名称", trigger: 'blur'}],
-                headTeacherId:[{required:true,message:"请输入班主任姓名", trigger: 'change'}],
+                headTeacherId:[{required:true,message:"请选择班主任姓名", trigger: 'change'}],
                 classNumber:[{required:true,message:"请输入班级人数", trigger: 'blur'}],
             }
         }
@@ -102,6 +103,9 @@ export default {
             }
             findClass(data).then(res =>{
                 console.log(res);
+                if(res.success){
+                    this.classList = res.data;
+                }
             })
         },
         //查找教师下拉值
@@ -118,7 +122,11 @@ export default {
              this.$refs.form.validate((valid) => {
                  if(valid){
                      addNewClass(this.form).then(res =>{
-                         console.log(res);
+                         if(res.success){
+                             this.findClass();
+                            this.dialogVisible = false;
+                             this.$message.success("添加成功");
+                         }
                      })
                  }
              })
@@ -135,12 +143,14 @@ export default {
     }
     .content{
         width: 100%;
+        display: flex;
         .content-item{
             width:150px;
             height: 180px;
             background-color: #fff;
             border-radius: 15px;
             overflow: hidden;
+            margin-right:15px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, .12), 0 0 6px rgba(0, 0, 0, .04);
             .item-top{
                 height: 28%;

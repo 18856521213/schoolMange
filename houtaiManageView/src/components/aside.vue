@@ -13,9 +13,7 @@
             background-color="#fff"
             text-color="#909399"
             router
-            @open="handleOpen"
             :default-active="fullPath"
-            @close="handleClose"
             active-text-color="#19856f">
                <el-menu-item v-for="item in navList.single" :key="item.name" :index="item.path">
                 <i :class="item.icon"></i>
@@ -32,11 +30,11 @@
     </div>
 </template>
 <script>
+import { mapState } from 'vuex'
 export default {
     name:"left",
     data() {
         return {
-            fullPath:"",
             navList:{
                 single:[
                     {path:"/home",name:"首页",icon:"el-icon-s-home"}
@@ -75,16 +73,16 @@ export default {
         }
     },
     created(){
-        this.getFullPath();
+    },
+    computed:{
+        ...mapState(['routeName']),
+        //随时获取当前路由值
+        fullPath(){
+            return this.routeName.path;
+        }
     },
     methods: {
-        getFullPath(){
-          this.fullPath = this.$route.fullPath
-        },
-        handleOpen(key, keyPath) {
-        },
-        handleClose(key, keyPath) {
-        },
+
     },
 }
 </script>

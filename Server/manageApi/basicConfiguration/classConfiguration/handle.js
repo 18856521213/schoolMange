@@ -53,7 +53,7 @@ module.exports = {
       let count = await studentClass.countDocuments({});
       if(count != 0){
         let filter = {
-          headTeacherId:req.body.express.teacherName,
+          headTeacherId:{$regex:req.body.express.headTeacherId},
           className:{$regex:req.body.express.className},
         };
         studentClass.find(filter,{__v:0,_id:0},(err,data)=>{

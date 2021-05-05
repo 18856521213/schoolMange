@@ -8,6 +8,7 @@ html,body,#app {
     background-color: #19856f;
     text-align: center;
     color: #fff;
+    padding: 15px !important;
   }
   .el-dialog__title{
     color: #fff !important;
