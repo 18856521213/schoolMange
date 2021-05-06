@@ -29,17 +29,20 @@
             </div>
         </div>
         <el-dialog
-          title="添加导航栏"
+          title="添加班级"
           :visible.sync="dialogVisible"
           @close="resetTeacherInfo"
           :show-close="false"
-          width="450px"
+          width="1050px"
           :center="true">
           <div class="dialog-content">
               <div class="form-box">
-                <el-form  ref="form" :rules="rules" :model="form" label-width="120px">
+                <el-form  ref="form" :rules="rules" :inline="true" :model="form" label-width="120px">
                     <el-form-item label="班级名称" prop="className">
                       <el-input size="small" v-model="form.className"></el-input>
+                    </el-form-item>
+                    <el-form-item label="班级人数" prop="classNumber">
+                      <el-input size="small" v-model="form.classNumber"></el-input>
                     </el-form-item>
                     <el-form-item label="班主任名称" prop="headTeacherId">
                         <el-select size="small" clearable v-model="form.headTeacherId" placeholder="请选择">
@@ -51,8 +54,103 @@
                             </el-option>
                         </el-select>                    
                     </el-form-item>
-                    <el-form-item label="班级人数" prop="classNumber">
-                      <el-input size="small" v-model="form.classNumber"></el-input>
+                    <el-form-item label="语文老师" prop="headTeacherId">
+                        <el-select size="small" clearable v-model="form.headTeacherId" placeholder="请选择">
+                            <el-option
+                            v-for="item in  headTeacherList"
+                            :key="item.teacherId"
+                            :label="item.teacherName"
+                            :value="item.teacherId">
+                            </el-option>
+                        </el-select>                    
+                    </el-form-item>
+                    <el-form-item label="数学老师" prop="headTeacherId">
+                        <el-select size="small" clearable v-model="form.headTeacherId" placeholder="请选择">
+                            <el-option
+                            v-for="item in  headTeacherList"
+                            :key="item.teacherId"
+                            :label="item.teacherName"
+                            :value="item.teacherId">
+                            </el-option>
+                        </el-select>                    
+                    </el-form-item>
+                    <el-form-item label="英语老师" prop="headTeacherId">
+                        <el-select size="small" clearable v-model="form.headTeacherId" placeholder="请选择">
+                            <el-option
+                            v-for="item in  headTeacherList"
+                            :key="item.teacherId"
+                            :label="item.teacherName"
+                            :value="item.teacherId">
+                            </el-option>
+                        </el-select>                    
+                    </el-form-item>
+                    <el-form-item label="生物老师" prop="headTeacherId">
+                        <el-select size="small" clearable v-model="form.headTeacherId" placeholder="请选择">
+                            <el-option
+                            v-for="item in  headTeacherList"
+                            :key="item.teacherId"
+                            :label="item.teacherName"
+                            :value="item.teacherId">
+                            </el-option>
+                        </el-select>                    
+                    </el-form-item>
+                    <el-form-item label="物理老师" prop="headTeacherId">
+                        <el-select size="small" clearable v-model="form.headTeacherId" placeholder="请选择">
+                            <el-option
+                            v-for="item in  headTeacherList"
+                            :key="item.teacherId"
+                            :label="item.teacherName"
+                            :value="item.teacherId">
+                            </el-option>
+                        </el-select>                    
+                    </el-form-item>
+                    <el-form-item label="化学老师" prop="headTeacherId">
+                        <el-select size="small" clearable v-model="form.headTeacherId" placeholder="请选择">
+                            <el-option
+                            v-for="item in  headTeacherList"
+                            :key="item.teacherId"
+                            :label="item.teacherName"
+                            :value="item.teacherId">
+                            </el-option>
+                        </el-select>                    
+                    </el-form-item>
+                    <el-form-item label="地理老师" prop="headTeacherId">
+                        <el-select size="small" clearable v-model="form.headTeacherId" placeholder="请选择">
+                            <el-option
+                            v-for="item in  headTeacherList"
+                            :key="item.teacherId"
+                            :label="item.teacherName"
+                            :value="item.teacherId">
+                            </el-option>
+                        </el-select>                    
+                    </el-form-item>
+                    <el-form-item label="政治老师" prop="headTeacherId">
+                        <el-select size="small" clearable v-model="form.headTeacherId" placeholder="请选择">
+                            <el-option
+                            v-for="item in  headTeacherList"
+                            :key="item.teacherId"
+                            :label="item.teacherName"
+                            :value="item.teacherId">
+                            </el-option>
+                        </el-select>                    
+                    </el-form-item>
+                    <el-form-item label="历史老师" prop="headTeacherId">
+                        <el-select size="small" clearable v-model="form.headTeacherId" placeholder="请选择">
+                            <el-option
+                            v-for="item in  headTeacherList"
+                            :key="item.teacherId"
+                            :label="item.teacherName"
+                            :value="item.teacherId">
+                            </el-option>
+                        </el-select>                    
+                    </el-form-item>
+                    <el-form-item label="班级描述" prop="headTeacherId">
+                        <el-input type="textarea"
+                         v-model="form.headTeacherId"
+                        placeholder="请输入班级描述" 
+                        :autosize="true" 
+                        maxlength="260"
+                        show-word-limit></el-input>
                     </el-form-item>
                 </el-form>
               </div>
@@ -102,7 +200,6 @@ export default {
                 express:this.filterForm
             }
             findClass(data).then(res =>{
-                console.log(res);
                 if(res.success){
                     this.classList = res.data;
                 }
@@ -111,7 +208,6 @@ export default {
         //查找教师下拉值
         findHandStudents(){
             findHandStudent({}).then(res =>{
-                console.log(res);
                 if(res.success){
                     this.headTeacherList = res.data;
                 }
@@ -139,7 +235,16 @@ export default {
 .box{
     padding-top: 15px;
     .dialog-content{
-        width:320px;
+        /deep/ .el-input__inner{
+        width:180px;
+        }
+        /deep/ .el-textarea__inner{
+            width:425%;
+        }
+        /deep/ .el-input__count{
+            right: -600px;
+        }
+        
     }
     .content{
         width: 100%;

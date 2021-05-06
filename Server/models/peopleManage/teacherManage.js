@@ -62,7 +62,7 @@ const teacherDB = mongoose.Schema({
     type:String,
     index:true,
     require:true,
-    enum:[0,1,2,3,4,5,6,7,8] //0语文，1数学，2英语，3生物，4地理，5化学 6生物 7历史 8政治
+    enum:[0,1,2,3,4,5,6,7,8,9] //0语文，1数学，2英语，3生物，4地理，5化学 6生物 7历史 8政治 9物理
   },
   teacherMatherName:{//教师母亲名字
     type:String,

@@ -1,4 +1,5 @@
 import axios from "axios";
+import { showLoading,hideLoading } from "@/publicUtils/loading.js"
 // 创建一个axios实例
 const service = axios.create({
   // baseURL: process.env.VUE_APP_BASE_API, // 完整url = baseUrl + requestUrl
@@ -10,7 +11,8 @@ const service = axios.create({
 service.interceptors.request.use(
   config => {
     // 携带token, 设置请求头
-    config.headers['Authorization'] = localStorage.getItem('token') || 'hfsdiufhdsifdshbfiuds'
+    config.headers['Authorization'] = localStorage.getItem('token') || 'hfsdiufhdsifdshbfiuds';
+    showLoading();
     return config
   },
 
@@ -25,11 +27,13 @@ service.interceptors.request.use(
 service.interceptors.response.use(
 
   response => {
-    const res = response.data
+    const res = response.data;
+    hideLoading();
     return res
   },  
 
   error => {
+    hideLoading();
     // 对响应错误做些什么
     return Promise.reject(error)
   }

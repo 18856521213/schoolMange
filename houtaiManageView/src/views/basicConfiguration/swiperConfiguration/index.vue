@@ -138,7 +138,6 @@ export default {
           }
           this.$refs.swiperForm.validate((valid) => {
             if(valid){
-              console.log(11)
               this.$refs.upload.submit();
             }
           })
