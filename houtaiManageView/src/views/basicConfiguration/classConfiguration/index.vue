@@ -39,10 +39,10 @@
               <div class="form-box">
                 <el-form  ref="form" :rules="rules" :inline="true" :model="form" label-width="120px">
                     <el-form-item label="班级名称" prop="className">
-                      <el-input size="small" v-model="form.className"></el-input>
+                      <el-input size="small" v-model="form.className" placeholder="请输入班级名称"></el-input>
                     </el-form-item>
                     <el-form-item label="班级人数" prop="classNumber">
-                      <el-input size="small" v-model="form.classNumber"></el-input>
+                      <el-input size="small" v-model="form.classNumber" placeholder="请输入班级人数"></el-input>
                     </el-form-item>
                     <el-form-item label="班主任名称" prop="headTeacherId">
                         <el-select size="small" clearable v-model="form.headTeacherId" placeholder="请选择">
@@ -148,7 +148,7 @@
                         <el-input type="textarea"
                          v-model="form.headTeacherId"
                         placeholder="请输入班级描述" 
-                        :autosize="true" 
+                        :autosize="{ minRows: 5, maxRows: 14}"
                         maxlength="260"
                         show-word-limit></el-input>
                     </el-form-item>
@@ -205,7 +205,7 @@ export default {
                 }
             })
         },
-        //查找教师下拉值
+        //查找班主任下拉值
         findHandStudents(){
             findHandStudent({}).then(res =>{
                 if(res.success){
