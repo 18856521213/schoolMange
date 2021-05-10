@@ -255,7 +255,6 @@ export default {
         },
         //添加班级
         addClass(){
-            console.log(111);
              this.$refs.form.validate((valid) => {
                  if(valid){
                      addNewClass(this.form).then(res =>{
@@ -285,7 +284,6 @@ export default {
                 id: "1"
             }
             findSubjectTeacher(data).then(res =>{
-                console.log(res);
                if(res.success){
                    this.mathTeacherList = res.data
                }
@@ -384,6 +382,8 @@ export default {
         }
         /deep/ .el-input__count{
             right: -600px;
+            bottom: -5px;
+            background: transparent;
         }
         
     }

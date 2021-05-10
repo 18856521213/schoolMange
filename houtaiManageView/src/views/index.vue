@@ -42,11 +42,17 @@ export default {
   position: absolute;
   left: 200px;
   right: 0;
-  top: 60px;
+  top:60px;
   bottom: 0;
   overflow-y: scroll;
   overflow-x: hidden;
   background-color:rgb(245, 244, 244);
+}
+.el-aside {
+  height: 90%;
+  position: absolute;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 
