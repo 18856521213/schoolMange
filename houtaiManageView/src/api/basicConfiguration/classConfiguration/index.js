@@ -24,3 +24,11 @@ export function findClass(data){
         data:data,
     })
 }
+//查找科目老师
+export function findSubjectTeacher(data){
+    return service({
+        url:"/basicConfiguration/findSubjectTeacher",
+        method:"post",
+        data:data,
+    })
+}

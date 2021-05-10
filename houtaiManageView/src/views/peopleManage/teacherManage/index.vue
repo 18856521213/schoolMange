@@ -250,10 +250,9 @@ import { addTeacher,findTeacher,deleteTeacher,updateTeacher } from "@/api/people
           {label:"生物",value:"3"},
           {label:"地理",value:"4"},
           {label:"化学",value:"5"},
-          {label:"生物",value:"6"},
+          {label:"物理",value:"6"},
           {label:"历史",value:"7"},
           {label:"政治",value:"8"},
-          {label:"物理",value:"9"},
         ],
         //健康水平
         healthList:[

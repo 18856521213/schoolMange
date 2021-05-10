@@ -17,6 +17,7 @@ router.post('/deleteTabarImage',tabar.deleteTabarImage);
 router.post('/findHandStudent',studentClass.findHandStudent);
 router.post('/addNewClass',studentClass.addNewClass);
 router.post('/findClass',studentClass.findClass);
+router.post('/findSubjectTeacher',studentClass.findSubjectTeacher);
 
 module.exports = router
 
