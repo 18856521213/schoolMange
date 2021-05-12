@@ -1,12 +1,12 @@
 //基础配置(一级)
-const basicConfiguration = () => import('@/views/basicConfiguration/')
+const basicConfiguration = () => import('@/views/basicConfiguration/index.vue')
 //轮播图(二级)
-const swiperConfiguration = () => import('@/views/basicConfiguration/swiperConfiguration/')
+const swiperConfiguration = () => import('@/views/basicConfiguration/swiperConfiguration/index.vue')
 //导航栏配置(二级)
-const tabarConfiguration = () => import('@/views/basicConfiguration/tabarConfiguration/')
+const tabarConfiguration = () => import('@/views/basicConfiguration/tabarConfiguration/index.vue')
 
 //班级配置(二级)
-const classConfiguration = () => import('@/views/basicConfiguration/classConfiguration/')
+const classConfiguration = () => import('@/views/basicConfiguration/classConfiguration/index.vue')
 
 export default[
     {

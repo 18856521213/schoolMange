@@ -1,11 +1,11 @@
 //新闻管理(一级)
-const newsManage = () => import('@/views/newManage/')
+const newsManage = () => import('@/views/newManage/index.vue')
 //综合资讯管理(二级)
-const complexInformation = () => import('@/views/newManage/complexInformation/')
+const complexInformation = () => import('@/views/newManage/complexInformation/index.vue')
 //校内资讯管理(二级)
-const schoolInformation = () => import('@/views/newManage/schoolInformation/')
+const schoolInformation = () => import('@/views/newManage/schoolInformation/index.vue')
 //奖学金管理(二级)
-const scholarship = () => import('@/views/newManage/scholarship/')
+const scholarship = () => import('@/views/newManage/scholarship/index.vue')
 
 export default[
     {

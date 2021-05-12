@@ -1,7 +1,7 @@
 //人员管理(一级)
-const peopleManage = () => import('@/views/peopleManage/')
+const peopleManage = () => import('@/views/peopleManage/index.vue')
 //教师管理(二级)
-const teacherManage = () => import('@/views/peopleManage/teacherManage/')
+const teacherManage = () => import('@/views/peopleManage/teacherManage/index.vue')
 
 export default[
     {

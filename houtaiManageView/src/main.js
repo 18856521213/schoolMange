@@ -3,7 +3,7 @@ import Vue from 'vue';
 //重置css
 import '@/assets/css/reset.css';
 import '@/assets/css/global.css';
-
+import  "babel-polyfill"
 import '@/assets/css/style/theme/index.css';
 import ElementUI from 'element-ui';
 // import 'element-ui/lib/theme-chalk/index.css';
