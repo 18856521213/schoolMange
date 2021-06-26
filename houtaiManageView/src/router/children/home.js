@@ -1,15 +1,11 @@
-import Home from '@/views/main/index.vue'
+import Main from '@/views/main/index.vue'
 
 export default [
-    { 
-        path: '/', 
-        redirect:'/home'
-      },
     
       {
-        path: '/home',
-        name: 'home',
-        component: Home,
+        path: '/main',
+        name: 'main',
+        component: Main,
         meta:{
           name:"首页"
         },

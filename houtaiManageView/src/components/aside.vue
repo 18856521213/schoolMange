@@ -37,7 +37,7 @@ export default {
         return {
             navList:{
                 single:[
-                    {path:"/home",name:"首页",icon:"el-icon-s-home"}
+                    {path:"/main",name:"首页",icon:"el-icon-s-home"}
                 ],
                 multiple:[
                     {
