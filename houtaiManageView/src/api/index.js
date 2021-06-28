@@ -10,6 +10,7 @@ const service = axios.create({
 // 请求拦截器
 service.interceptors.request.use(
   config => {
+    console.log(config);
     // 携带token, 设置请求头
     config.headers['Authorization'] = localStorage.getItem('token') || 'hfsdiufhdsifdshbfiuds';
     showLoading();
@@ -27,6 +28,7 @@ service.interceptors.request.use(
 service.interceptors.response.use(
 
   response => {
+    console.log(response);
     const res = response.data;
     hideLoading();
     return res
